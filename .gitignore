@@ -11,3 +11,16 @@ Desktop.ini
 *.log
 *.tmp
 *.temp
+
+# 原始输入（交付包与数据集解包结果，体积大且为外部材料，不入库）
+# 需要重建数据时，把两个 zip 解包到 input/交付包 与 input/数据集
+input/
+*.zip
+
+# Python 缓存
+__pycache__/
+*.pyc
+
+# 说明：data/*.json 与 index.html 是构建产物，但为保证克隆后可直接运行与复现，
+# 仍然入库；由 tools/build_data.py 与 tools/build.py 生成。
+!useractivity.log

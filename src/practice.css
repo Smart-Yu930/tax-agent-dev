@@ -1,0 +1,2869 @@
+/*!
+ * practice.css — 实务系统（复刻 P1-01 增值税发票开具系统）样式
+ *
+ * 约定：
+ *   1. 只使用 .pra- 前缀的类，避免污染全局样式；
+ *   2. 颜色取自 docs/DATA_CONTRACT.md 第 9 节设计令牌，全部带兜底值，可独立预览；
+ *   3. 视觉密度、字号、表头/卡片风格与参照系统保持一致；
+ *   4. 最小适配 1366×768。
+ */
+
+/* ------------------------------------------------------------------
+ * 0. 容器与基础
+ * ------------------------------------------------------------------ */
+.pra-root {
+  --pra-ink: var(--ink, #0b1b2b);
+  --pra-ink2: var(--ink2, #12324c);
+  --pra-gold: var(--gold, #0e8478);
+  --pra-gold2: var(--gold2, #35b7a8);
+  --pra-bg: var(--bg, #eef2f6);
+  --pra-card: var(--card, #fff);
+  --pra-line: var(--line, #dfe7f0);
+  --pra-text: var(--text, #1f3042);
+  --pra-muted: var(--muted, #6b7f93);
+  --pra-ok: var(--ok, #0f6b4f);
+  --pra-warn: var(--warn, #9a4b00);
+  --pra-bad: var(--bad, #b91c1c);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 600px;
+  background: var(--pra-bg);
+  color: var(--pra-text);
+  font-family: 'Microsoft YaHei', 'PingFang SC', system-ui, sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 10px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.pra-root *,
+.pra-root *::before,
+.pra-root *::after {
+  box-sizing: border-box;
+}
+
+/* 宿主已提供顶部条 + 左侧菜单时（boot.js 外壳）只渲染内容区，避免双层导航 */
+.pra-root.pra-bare {
+  min-height: 0;
+  height: 100%;
+  border-radius: 0;
+  background: transparent;
+}
+
+.pra-root.pra-bare .pra-body {
+  min-height: 0;
+}
+
+/* ------------------------------------------------------------------
+ * 1. 顶部系统条
+ * ------------------------------------------------------------------ */
+.pra-top {
+  height: 46px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 16px;
+  background: linear-gradient(100deg, var(--pra-ink), var(--pra-ink2));
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(11, 27, 43, .2);
+}
+
+.pra-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 210px;
+}
+
+.pra-logo {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, var(--pra-gold2), var(--pra-gold));
+  color: var(--pra-ink);
+  font-weight: 800;
+  font-size: 13px;
+  flex: none;
+}
+
+.pra-brand b {
+  display: block;
+  font-size: 11.5px;
+  letter-spacing: .02em;
+  line-height: 1.3;
+}
+
+.pra-brand em {
+  display: block;
+  font-style: normal;
+  font-size: 8.5px;
+  color: #9fb6cb;
+}
+
+.pra-sysname {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  white-space: nowrap;
+}
+
+.pra-sysname i {
+  font-style: normal;
+  font-size: 8.5px;
+  font-weight: 600;
+  color: var(--pra-gold2);
+  border: 1px solid rgba(215, 179, 106, .45);
+  border-radius: 4px;
+  padding: 1px 5px;
+  margin-left: 7px;
+  vertical-align: 2px;
+}
+
+.pra-user {
+  margin-left: auto;
+  font-size: 10px;
+  color: #c7d7e6;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.pra-user span {
+  color: #8fa9bf;
+}
+
+/* ------------------------------------------------------------------
+ * 2. 布局：侧边菜单 + 主区
+ * ------------------------------------------------------------------ */
+.pra-body {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.pra-side {
+  width: 186px;
+  flex: none;
+  background: var(--pra-card);
+  border-right: 1px solid var(--pra-line);
+  padding: 11px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: auto;
+}
+
+.pra-side h4 {
+  margin: 2px 8px 7px;
+  font-size: 9px;
+  letter-spacing: .12em;
+  color: #9aabbb;
+  font-weight: 800;
+}
+
+.pra-navbtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 32px;
+  padding: 6px 9px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: #4c6176;
+  font: inherit;
+  font-size: 11px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.pra-navbtn::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #c9d6e2;
+  flex: none;
+}
+
+.pra-navbtn:hover {
+  background: #f4f8fc;
+  color: var(--pra-ink2);
+}
+
+.pra-navbtn.on {
+  background: #eef5fb;
+  color: var(--pra-ink2);
+  font-weight: 800;
+}
+
+.pra-navbtn.on::before {
+  background: var(--pra-gold);
+  box-shadow: 0 0 0 3px rgba(181, 133, 47, .15);
+}
+
+.pra-side-note {
+  margin-top: auto;
+  padding: 9px;
+  border-radius: 8px;
+  background: #fbf7ee;
+  border: 1px dashed #e6d6b4;
+  font-size: 9px;
+  line-height: 1.6;
+  color: #8a6415;
+}
+
+.pra-side-note b {
+  display: block;
+  margin-bottom: 3px;
+  color: #6f4f0d;
+}
+
+.pra-main {
+  flex: 1;
+  min-width: 0;
+  padding: 14px 18px 22px;
+  overflow: auto;
+}
+
+/* ------------------------------------------------------------------
+ * 3. 页头 / 视图
+ * ------------------------------------------------------------------ */
+.pra-view {
+  display: none;
+}
+
+.pra-view.on {
+  display: block;
+  animation: pra-in .18s ease;
+}
+
+@keyframes pra-in {
+  from {
+    opacity: .4;
+    transform: translateY(3px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.pra-pagehead {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 11px;
+}
+
+.pra-pagehead h1 {
+  margin: 0;
+  font-size: 17px;
+  color: var(--pra-ink2);
+  letter-spacing: .03em;
+}
+
+.pra-pagehead p {
+  margin: 0;
+  font-size: 10px;
+  color: #7b8ea3;
+}
+
+.pra-tag {
+  margin-left: auto;
+  font-size: 9px;
+  color: #1f6f69;
+  background: #eaf7f6;
+  border: 1px solid #cfe8e5;
+  border-radius: 5px;
+  padding: 2px 7px;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------
+ * 4. 概览卡
+ * ------------------------------------------------------------------ */
+.pra-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 9px;
+  margin-bottom: 12px;
+}
+
+.pra-kpi {
+  background: var(--pra-card);
+  border: 1px solid var(--pra-line);
+  border-radius: 10px;
+  padding: 9px 11px;
+  box-shadow: 0 2px 8px rgba(20, 35, 50, .03);
+}
+
+.pra-kpi b {
+  display: block;
+  font-size: 18px;
+  color: var(--pra-ink2);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.15;
+}
+
+.pra-kpi span {
+  display: block;
+  margin-top: 2px;
+  font-size: 9px;
+  color: #8fa0b1;
+}
+
+/* ------------------------------------------------------------------
+ * 5. 面板
+ * ------------------------------------------------------------------ */
+.pra-panel {
+  background: var(--pra-card);
+  border: 1px solid var(--pra-line);
+  border-radius: 11px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(20, 35, 50, .03);
+}
+
+.pra-panel>header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  background: linear-gradient(180deg, #fbfcfe, #f6f9fb);
+  border-bottom: 1px solid #edf2f7;
+}
+
+.pra-panel>header b {
+  font-size: 11.5px;
+  color: #22374b;
+}
+
+.pra-panel>header em {
+  margin-left: auto;
+  font-style: normal;
+  font-size: 9px;
+  color: #8fa0b1;
+}
+
+.pra-pb {
+  padding: 10px 12px 12px;
+}
+
+/* ------------------------------------------------------------------
+ * 6. 提示条 / 说明
+ * ------------------------------------------------------------------ */
+.pra-callout {
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 9.5px;
+  line-height: 1.65;
+  margin: 4px 0 9px;
+}
+
+.pra-callout.info {
+  background: #f2f7fb;
+  border: 1px solid #dbe8f3;
+  color: #4c6176;
+}
+
+.pra-callout.gold {
+  background: #fbf7ee;
+  border: 1px dashed #e6d6b4;
+  color: #7d5a13;
+}
+
+.pra-callout b {
+  font-size: 10px;
+}
+
+.pra-tnote {
+  padding: 6px 2px 0;
+  font-size: 9px;
+  color: #9aabbb;
+  line-height: 1.6;
+}
+
+.pra-lh {
+  margin: 10px 0 5px;
+  font-size: 9px;
+  color: #8fa0b1;
+}
+
+.pra-warns {
+  margin: 4px 0 0;
+  padding-left: 16px;
+  font-size: 9.5px;
+  color: var(--pra-warn);
+}
+
+.pra-warns li {
+  margin: 2px 0;
+}
+
+/* ------------------------------------------------------------------
+ * 7. 表格
+ * ------------------------------------------------------------------ */
+.pra-tblwrap {
+  overflow: auto;
+}
+
+.pra-tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 10.5px;
+}
+
+.pra-tbl th {
+  background: #f6f9fb;
+  color: #64788b;
+  font-weight: 700;
+  text-align: left;
+  padding: 6px 8px;
+  border-bottom: 1px solid #e3ebf2;
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.pra-tbl th.r {
+  text-align: right;
+}
+
+.pra-tbl td {
+  padding: 6px 8px;
+  border-bottom: 1px solid #eff4f8;
+  color: #33465a;
+  vertical-align: top;
+}
+
+.pra-tbl tr:hover td {
+  background: #fbfdff;
+}
+
+.pra-tbl td.first {
+  font-weight: 700;
+  color: #22374b;
+}
+
+.pra-tbl td.mono {
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 10px;
+  letter-spacing: .01em;
+}
+
+.pra-tbl td.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.pra-tbl td.pra-op {
+  white-space: nowrap;
+}
+
+.pra-tbl td.pra-empty {
+  text-align: center;
+  color: #9aabbb;
+  padding: 22px;
+}
+
+/* 单据类型标签 */
+.pra-doc-tag {
+  display: inline-block;
+  font-size: 8.5px;
+  line-height: 1.5;
+  padding: 0 5px;
+  border-radius: 3px;
+  border: 1px solid #e2ebf3;
+  background: #f2f7fb;
+  color: #4c6176;
+  white-space: nowrap;
+}
+
+.pra-doc-tag.contract {
+  color: #1f3864;
+  background: #eff3fb;
+  border-color: #d5e0f1;
+}
+
+.pra-doc-tag.accept {
+  color: #1f6f69;
+  background: #eaf7f6;
+  border-color: #cfe8e5;
+}
+
+.pra-doc-tag.out {
+  color: #7d5a13;
+  background: #fbf7ee;
+  border-color: #e6d6b4;
+}
+
+.pra-doc-tag.invoice {
+  color: #0e4a8a;
+  background: #eef5fb;
+  border-color: #d6e4f2;
+}
+
+.pra-doc-tag.customs {
+  color: #6b2f7a;
+  background: #f6effa;
+  border-color: #e4d3ee;
+}
+
+/* ==================================================================
+ * 16. 排版升级（V1.6）：整体放大字号、简化层次、突出主流程
+ * ================================================================== */
+.pra-root {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.pra-main {
+  padding: 16px 20px 26px;
+}
+
+/* 页头 */
+.pra-pagehead {
+  align-items: center;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e6edf4;
+}
+
+.pra-pagehead h1 {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: .02em;
+}
+
+.pra-pagehead p {
+  font-size: 12.5px;
+  color: #6b7f93;
+}
+
+.pra-tag {
+  font-size: 11px;
+  padding: 3px 9px;
+}
+
+/* 概览卡：更大更醒目 */
+.pra-kpis {
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.pra-kpi {
+  padding: 14px 16px;
+  min-height: 84px;
+  border-radius: 12px;
+  box-shadow: 0 3px 14px rgba(20, 35, 50, .06);
+}
+
+.pra-kpi b {
+  font-size: 26px;
+  letter-spacing: -.01em;
+}
+
+.pra-kpi span {
+  font-size: 12px;
+  margin-top: 4px;
+  color: #7b8ea3;
+}
+
+/* 面板：去掉多余装饰，留白更足 */
+.pra-panel {
+  border-radius: 12px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 10px rgba(20, 35, 50, .05);
+}
+
+.pra-panel > header {
+  padding: 12px 16px;
+  min-height: 46px;
+}
+
+.pra-panel > header b {
+  font-size: 14.5px;
+}
+
+.pra-panel > header em {
+  font-size: 11.5px;
+}
+
+.pra-pb {
+  padding: 14px 16px 16px;
+}
+
+/* 提示条 */
+.pra-callout {
+  font-size: 12.5px;
+  line-height: 1.7;
+  padding: 10px 13px;
+  border-radius: 9px;
+  margin: 0 0 12px;
+}
+
+.pra-callout b {
+  font-size: 13px;
+}
+
+.pra-tnote {
+  font-size: 11.5px;
+  color: #8493a4;
+  padding-top: 8px;
+}
+
+/* 表格：字号放大，行高更松，序号列弱化 */
+.pra-tbl {
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+.pra-tbl th {
+  font-size: 12px;
+  padding: 10px 12px;
+  background: #f4f8fc;
+}
+
+.pra-tbl td {
+  padding: 10px 12px;
+  color: #33465a;
+}
+
+.pra-tbl td.num {
+  font-variant-numeric: tabular-nums;
+}
+
+.pra-tbl td.mono {
+  font-size: 12px;
+}
+
+.pra-tbl th:first-child,
+.pra-tbl td:first-child {
+  color: #8ea0b2;
+  font-weight: 600;
+}
+
+.pra-tblwrap {
+  border-radius: 10px;
+}
+
+/* 状态胶囊 */
+.pra-status {
+  font-size: 11px;
+  line-height: 1.7;
+  padding: 1px 9px;
+  border-radius: 10px;
+}
+
+.pra-doc-tag {
+  font-size: 10.5px;
+  padding: 1px 7px;
+}
+
+/* 按钮 */
+.pra-btn {
+  font-size: 12.5px;
+  min-height: 32px;
+  padding: 0 13px;
+  border-radius: 8px;
+}
+
+.pra-btn-sm {
+  font-size: 11.5px;
+  min-height: 28px;
+  padding: 0 10px;
+}
+
+.pra-btn-lg {
+  font-size: 14px;
+  min-height: 42px;
+  padding: 0 20px;
+  font-weight: 700;
+}
+
+/* 筛选 chips */
+.pra-chip {
+  font-size: 11.5px;
+  padding: 3px 11px;
+  border-radius: 12px;
+  min-height: 26px;
+}
+
+.pra-chip-label {
+  font-size: 11px;
+}
+
+.pra-toolbar {
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.pra-input,
+.pra-select,
+.pra-textarea {
+  font-size: 13px;
+  min-height: 34px;
+}
+
+/* 工作台快捷入口 */
+.pra-quick {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  padding: 14px 16px;
+  background: #fff;
+  border: 1px solid var(--pra-line, #dfe7f0);
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(20, 35, 50, .05);
+}
+
+.pra-quick-note {
+  font-style: normal;
+  font-size: 12px;
+  color: #8493a4;
+}
+
+/* 新建开票业务：上传卡 */
+.pra-upload {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px;
+  border: 2px dashed #c9d6e6;
+  border-radius: 12px;
+  background: #fafcfe;
+  margin-bottom: 14px;
+  transition: .15s;
+}
+
+.pra-upload:hover {
+  border-color: var(--pra-gold, #0e8478);
+  background: #fffdf7;
+}
+
+.pra-upload-icon {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: linear-gradient(145deg, var(--pra-gold2, #35b7a8), var(--pra-gold, #0e8478));
+  color: #fff;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.pra-upload-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.pra-upload-main b {
+  display: block;
+  font-size: 15px;
+  color: var(--pra-ink2, #12324c);
+}
+
+.pra-upload-main span {
+  display: block;
+  margin-top: 3px;
+  font-size: 12.5px;
+  color: #7b8ea3;
+}
+
+/* 发票开具：业务上下文条 */
+.pra-issue-ctx {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  border-radius: 10px;
+  background: #f2f7fb;
+  border: 1px solid #dbe8f3;
+  font-size: 13px;
+  color: #4c6176;
+}
+
+.pra-issue-ctx b {
+  font-size: 14.5px;
+  color: var(--pra-ink2, #12324c);
+}
+
+.pra-issue-ctx-tag {
+  font-size: 11px;
+  color: #fff;
+  background: var(--pra-ink2, #12324c);
+  border-radius: 5px;
+  padding: 1px 8px;
+}
+
+.pra-issue-ctx-state {
+  margin-left: auto;
+  font-size: 12px;
+  color: #7d5a13;
+  background: #fbf7ee;
+  border: 1px solid #e6d6b4;
+  border-radius: 10px;
+  padding: 1px 10px;
+}
+
+.pra-issue-ctx.empty {
+  background: #fffdf7;
+  border-color: #e6d6b4;
+  align-items: flex-start;
+}
+
+.pra-issue-ctx.empty b {
+  color: #7d5a13;
+}
+
+.pra-issue-ctx.empty span {
+  flex: 1;
+  min-width: 220px;
+  font-size: 12.5px;
+  color: #8a6415;
+}
+
+/* 表单 */
+.pra-form {
+  gap: 12px;
+}
+
+.pra-form label > span {
+  font-size: 12px;
+  color: #64788b;
+}
+
+/* 草稿区 */
+.pra-draft-meta {
+  font-size: 12px;
+}
+
+.pra-draft-line {
+  font-size: 12.5px;
+}
+
+.pra-vhead {
+  font-size: 13px;
+}
+
+.pra-vrow {
+  font-size: 12.5px;
+}
+
+/* 分页 */
+.pra-pager {
+  font-size: 12px;
+  gap: 10px;
+}
+
+/* 窄屏跟随缩放 */
+@media (max-width: 1200px) {
+  .pra-pagehead h1 { font-size: 20px; }
+  .pra-kpi b { font-size: 23px; }
+  .pra-main { padding: 14px 14px 22px; }
+}
+
+@media (max-width: 1000px) {
+  .pra-kpi b { font-size: 21px; }
+  .pra-kpi { min-height: 74px; padding: 12px 13px; }
+  .pra-btn-lg { min-height: 38px; font-size: 13px; }
+}
+
+@media (max-width: 600px) {
+  .pra-root { font-size: 13px; }
+  .pra-pagehead h1 { font-size: 18px; }
+  .pra-kpi b { font-size: 20px; }
+  .pra-upload { flex-wrap: wrap; }
+  .pra-upload-main { flex-basis: 100%; }
+}
+
+/* 状态胶囊 */
+.pra-status {
+  display: inline-block;
+  font-size: 9px;
+  line-height: 1.6;
+  padding: 0 6px;
+  border-radius: 9px;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+.pra-status.ok {
+  color: var(--pra-ok);
+  background: #eef7f2;
+  border-color: #cbe6d8;
+}
+
+.pra-status.warn {
+  color: var(--pra-warn);
+  background: #fdf5e9;
+  border-color: #ecd9b6;
+}
+
+.pra-status.bad {
+  color: var(--pra-bad);
+  background: #fdeeee;
+  border-color: #f0cfcf;
+}
+
+/* 已开具：蓝色实底，与「待开票」区分 */
+.pra-status.done {
+  color: #fff;
+  background: var(--pra-blue, #0e4a8a);
+  border-color: var(--pra-blue, #0e4a8a);
+  font-weight: 700;
+}
+
+.pra-issued-no {
+  font-size: 10px;
+  color: var(--pra-muted, #6b7f93);
+  font-family: Consolas, 'Courier New', monospace;
+}
+
+/* ------------------------------------------------------------------
+ * 8. 工具条 / 筛选 chips / 搜索 / 分页
+ * ------------------------------------------------------------------ */
+.pra-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 9px;
+}
+
+.pra-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+}
+
+.pra-chips-labelled {
+  padding-right: 8px;
+  border-right: 1px dashed #e2ebf3;
+}
+
+.pra-chip-label {
+  font-style: normal;
+  font-size: 9px;
+  color: #8fa0b1;
+  margin-right: 2px;
+}
+
+.pra-chip {
+  font: inherit;
+  font-size: 9px;
+  line-height: 1.7;
+  padding: 1px 7px;
+  border-radius: 9px;
+  border: 1px solid #e2ebf3;
+  background: #f7fafc;
+  color: #4c6176;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.pra-chip:hover {
+  border-color: #cfdde9;
+  color: var(--pra-ink2);
+}
+
+.pra-chip.on {
+  background: #eef5fb;
+  border-color: #c3d8ea;
+  color: var(--pra-ink2);
+  font-weight: 800;
+}
+
+.pra-search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  font-size: 9px;
+  color: #8fa0b1;
+}
+
+.pra-search .pra-input {
+  width: 200px;
+}
+
+.pra-inline-lab {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 9.5px;
+  color: #7b8ea3;
+}
+
+.pra-pager {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.pra-pager .pra-tnote {
+  flex: 1;
+  padding: 0;
+}
+
+/* ------------------------------------------------------------------
+ * 9. 表单 / 输入 / 按钮
+ * ------------------------------------------------------------------ */
+.pra-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 15px;
+}
+
+.pra-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 9.5px;
+  color: #7b8ea3;
+  min-width: 0;
+}
+
+.pra-form label.full {
+  grid-column: 1 / -1;
+}
+
+.pra-input,
+.pra-select,
+.pra-textarea {
+  border: 1px solid #d6e0ea;
+  border-radius: 6px;
+  height: 28px;
+  padding: 0 8px;
+  font: inherit;
+  font-size: 10.5px;
+  color: #22374b;
+  background: #fff;
+  width: 100%;
+  min-width: 0;
+}
+
+.pra-textarea {
+  height: 52px;
+  padding: 6px 8px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.pra-select {
+  width: auto;
+  min-width: 130px;
+  padding-right: 4px;
+}
+
+.pra-input:focus,
+.pra-select:focus,
+.pra-textarea:focus {
+  outline: 0;
+  border-color: #9dbfda;
+  box-shadow: 0 0 0 3px rgba(21, 90, 142, .08);
+}
+
+.pra-input.pra-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.pra-input.pra-hl,
+.pra-rate.pra-hl {
+  border-color: var(--pra-gold);
+  box-shadow: 0 0 0 3px rgba(181, 133, 47, .12);
+  background: #fffdf7;
+}
+
+.pra-rates {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  height: 28px;
+  align-items: center;
+}
+
+.pra-rate {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  color: #33465a;
+  border: 1px solid #d6e0ea;
+  border-radius: 6px;
+  padding: 3px 7px;
+  cursor: pointer;
+  background: #fff;
+}
+
+.pra-rate:hover {
+  border-color: #b9cddd;
+}
+
+.pra-radio {
+  width: 11px;
+  height: 11px;
+  margin: 0;
+  accent-color: var(--pra-gold);
+}
+
+.pra-rate:has(.pra-radio:checked) {
+  border-color: var(--pra-gold);
+  color: #7d5a13;
+  background: #fbf7ee;
+  font-weight: 700;
+}
+
+.pra-acts {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.pra-btn {
+  height: 28px;
+  padding: 0 12px;
+  border-radius: 6px;
+  border: 1px solid #cfdde9;
+  background: #fff;
+  color: #33465a;
+  font: inherit;
+  font-size: 10.5px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.pra-btn:hover {
+  border-color: #b9cddd;
+  color: var(--pra-ink2);
+}
+
+.pra-btn:active {
+  transform: translateY(1px);
+}
+
+.pra-btn[disabled] {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+.pra-btn-sm {
+  height: 23px;
+  padding: 0 8px;
+  font-size: 9.5px;
+  font-weight: 700;
+}
+
+.pra-btn-gold {
+  background: linear-gradient(135deg, #c99b45, #a97a25);
+  border-color: #a97a25;
+  color: #fff;
+}
+
+.pra-btn-gold:hover {
+  color: #fff;
+  border-color: #966d20;
+}
+
+.pra-btn-ghost {
+  background: transparent;
+  border-style: dashed;
+  color: #7b8ea3;
+  font-weight: 400;
+}
+
+.pra-btn-block {
+  width: 100%;
+  height: auto;
+  padding: 7px 10px;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* ------------------------------------------------------------------
+ * 10. 校验区
+ * ------------------------------------------------------------------ */
+.pra-vchecks {
+  margin-top: 11px;
+  border: 1px solid #e3ebf2;
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 9.5px;
+}
+
+.pra-vhead {
+  padding: 6px 10px;
+  font-weight: 700;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.pra-vhead.ok {
+  background: #eef9f3;
+  color: var(--pra-ok);
+}
+
+.pra-vhead.bad {
+  background: #fdf0f0;
+  color: var(--pra-bad);
+}
+
+.pra-vhead.idle {
+  background: #f7fafc;
+  color: #7b8ea3;
+  border-bottom: 0;
+  font-weight: 400;
+}
+
+.pra-vrow {
+  display: flex;
+  gap: 7px;
+  padding: 5px 10px;
+  border-bottom: 1px dashed #eef3f8;
+  line-height: 1.55;
+}
+
+.pra-vrow:last-child {
+  border-bottom: 0;
+}
+
+.pra-vmark {
+  font-style: normal;
+  font-weight: 800;
+  flex: none;
+  width: 12px;
+}
+
+.pra-vrow.ok {
+  color: #3f7f63;
+}
+
+.pra-vrow.ok .pra-vmark {
+  color: var(--pra-ok);
+}
+
+.pra-vrow.bad {
+  color: var(--pra-bad);
+  background: #fffafa;
+}
+
+.pra-vrow.bad .pra-vmark {
+  color: var(--pra-bad);
+}
+
+/* ------------------------------------------------------------------
+ * 11. 智能体草稿区
+ * ------------------------------------------------------------------ */
+.pra-draft {
+  margin-top: 11px;
+  border: 1px dashed #e6d6b4;
+  border-radius: 8px;
+  background: #fbf9f3;
+  padding: 8px 10px;
+}
+
+.pra-draft>b {
+  font-size: 10px;
+  color: #6f4f0d;
+}
+
+.pra-draft-body {
+  margin-top: 5px;
+}
+
+.pra-draft-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 9px;
+  color: #8a6415;
+  margin-bottom: 5px;
+}
+
+.pra-draft-line {
+  font-size: 9px;
+  color: #9a7a3a;
+  margin: 3px 0 5px;
+}
+
+.pra-draft .pra-tbl {
+  background: #fff;
+  border-radius: 6px;
+}
+
+/* ------------------------------------------------------------------
+ * 12. 原件摘要面板
+ * ------------------------------------------------------------------ */
+.pra-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 28px 18px;
+  background: rgba(11, 27, 43, .42);
+  backdrop-filter: blur(1px);
+  overflow: auto;
+}
+
+.pra-modal.on {
+  display: flex;
+}
+
+.pra-modal-card {
+  width: min(980px, 100%);
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--pra-card);
+  border-radius: 11px;
+  box-shadow: 0 18px 48px rgba(11, 27, 43, .3);
+  overflow: hidden;
+}
+
+.pra-modal-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  background: linear-gradient(180deg, #fbfcfe, #f4f8fb);
+  border-bottom: 1px solid #e7eef5;
+}
+
+.pra-modal-head b {
+  font-size: 11.5px;
+  color: #22374b;
+}
+
+.pra-modal-head em {
+  font-style: normal;
+  font-size: 9px;
+  color: #8fa0b1;
+}
+
+.pra-modal-head .pra-btn {
+  margin-left: auto;
+}
+
+.pra-modal-body {
+  padding: 11px 13px 15px;
+  overflow: auto;
+}
+
+.pra-dochead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+  border-bottom: 2px solid var(--pra-ink2);
+  padding-bottom: 7px;
+  margin-bottom: 9px;
+}
+
+.pra-dochead-left b {
+  font-size: 14px;
+  color: var(--pra-ink2);
+  margin-right: 8px;
+}
+
+.pra-dochead-left span {
+  font-size: 10px;
+  color: #7b8ea3;
+}
+
+.pra-amt {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--pra-gold);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.pra-tbl td.pra-f-label {
+  color: #64788b;
+  width: 26%;
+}
+
+.pra-tbl td.pra-f-loc {
+  color: #8fa0b1;
+  font-size: 9.5px;
+}
+
+.pra-tbl td.pra-f-src {
+  color: #9aabbb;
+  font-size: 9px;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------
+ * 13. 红冲与作废 / 暂缓区
+ * ------------------------------------------------------------------ */
+.pra-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  align-items: start;
+}
+
+.pra-split .pra-callout {
+  margin: 0 0 10px;
+}
+
+.pra-pending-notes {
+  margin-top: 9px;
+}
+
+.pra-suspend {
+  border: 1px solid #f0cfcf;
+  background: #fdf6f6;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 9.5px;
+  color: #9c3535;
+}
+
+.pra-suspend>b {
+  display: block;
+  font-size: 10px;
+  color: var(--pra-bad);
+  margin-bottom: 4px;
+}
+
+.pra-suspend-list {
+  margin: 0;
+  padding-left: 16px;
+  line-height: 1.7;
+}
+
+.pra-suspend-list li {
+  margin: 1px 0;
+}
+
+/* ------------------------------------------------------------------
+ * 14. 内置提示条
+ * ------------------------------------------------------------------ */
+.pra-toast {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  transform: translate(-50%, 14px);
+  opacity: 0;
+  pointer-events: none;
+  max-width: 82%;
+  background: #0b2237;
+  color: #fff;
+  font-size: 10.5px;
+  line-height: 1.6;
+  padding: 8px 14px;
+  border-radius: 7px;
+  box-shadow: 0 8px 24px rgba(11, 34, 55, .28);
+  transition: .2s;
+  z-index: 70;
+}
+
+.pra-toast.on {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* ------------------------------------------------------------------
+ * 15. 响应式（最小支持 1366×768）
+ * ------------------------------------------------------------------ */
+@media (max-width: 1500px) {
+  .pra-side {
+    width: 172px;
+  }
+
+  .pra-main {
+    padding: 12px 14px 18px;
+  }
+
+  .pra-search .pra-input {
+    width: 160px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .pra-side {
+    width: 150px;
+  }
+
+  .pra-brand {
+    min-width: 0;
+  }
+
+  .pra-sysname i,
+  .pra-user span {
+    display: none;
+  }
+
+  .pra-form {
+    grid-template-columns: 1fr;
+  }
+
+  .pra-split {
+    grid-template-columns: 1fr;
+  }
+
+  .pra-kpis {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+}
+
+/* 布局整理补丁：提升可读性、状态区分与窄屏操作体验 */
+.pra-pagehead {
+  align-items: center;
+  padding: 2px 1px 4px;
+}
+.pra-pagehead h1 {
+  font-size: clamp(16px, 1.25vw, 20px);
+}
+.pra-panel {
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(20, 35, 50, .045);
+}
+.pra-panel > header {
+  min-height: 40px;
+}
+.pra-kpi {
+  min-height: 66px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.pra-kpi b {
+  font-size: clamp(17px, 1.35vw, 21px);
+}
+.pra-tbl {
+  font-size: 11px;
+  line-height: 1.55;
+}
+.pra-tbl th {
+  padding: 8px 9px;
+}
+.pra-tbl td {
+  padding: 8px 9px;
+}
+.pra-tbl tbody tr:nth-child(even) td {
+  background: #fcfdfe;
+}
+.pra-tbl tbody tr:hover td {
+  background: #f2f7fb;
+}
+.pra-status.done {
+  box-shadow: 0 1px 2px rgba(14, 74, 138, .12);
+}
+.pra-btn:focus-visible,
+.pra-chip:focus-visible,
+.pra-navbtn:focus-visible,
+.pra-select:focus-visible,
+.pra-input:focus-visible {
+  outline: 3px solid rgba(14, 74, 138, .22);
+  outline-offset: 1px;
+}
+.pra-tblwrap {
+  border: 1px solid #e7eef5;
+  border-radius: 8px;
+  scrollbar-color: #cbd8e4 #f5f8fb;
+}
+.pra-tblwrap::-webkit-scrollbar { width: 8px; height: 8px; }
+.pra-tblwrap::-webkit-scrollbar-thumb { background: #cbd8e4; border-radius: 6px; }
+.pra-tblwrap::-webkit-scrollbar-track { background: #f5f8fb; }
+
+@media (max-width: 1000px) {
+  .pra-root.pra-bare { min-height: 0; }
+  .pra-main { padding: 10px 11px 16px; }
+  .pra-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pra-split { grid-template-columns: 1fr; }
+  .pra-toolbar { align-items: flex-start; }
+  .pra-search { width: 100%; margin-left: 0; }
+  .pra-search .pra-input { width: min(100%, 320px); flex: 1; }
+}
+@media (max-width: 600px) {
+  .pra-main { padding: 8px; }
+  .pra-pagehead { align-items: flex-start; flex-direction: column; }
+  .pra-pagehead h1 { font-size: 16px; }
+  .pra-kpis { gap: 7px; }
+  .pra-kpi { padding: 8px 9px; min-height: 60px; }
+  .pra-kpi b { font-size: 17px; }
+  .pra-panel > header { padding: 8px 9px; }
+  .pra-pb { padding: 8px; }
+  .pra-tbl { min-width: 790px; }
+  .pra-chip { min-height: 27px; }
+  .pra-toolbar { gap: 7px; }
+  .pra-modal { width: 96vw; max-height: 92vh; }
+}
+
+@media print {
+
+  .pra-side,
+  .pra-acts,
+  .pra-toolbar {
+    display: none;
+  }
+
+  .pra-root {
+    height: auto;
+    min-height: 0;
+  }
+
+  .pra-main {
+    overflow: visible;
+  }
+}
+
+/* ==================================================================
+ * 17. 工作台数据任务看板（V1.7）
+ *   4 列任务看板 .pra-board / 6 张模块任务卡 .pra-taskgrid
+ *   仅追加，不改动上文既有规则；字号按 V1.6 的 14px 基准，卡片内不小于 11px
+ * ================================================================== */
+.pra-board-note {
+  margin: 0 0 14px;
+}
+
+/* 工作台 6 张概览卡：一屏排开，数值改用可缩放字号，避免「12,638.00 万元」换行挤压 */
+.pra-kpis.pra-kpis-six {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.pra-kpis.pra-kpis-six .pra-kpi {
+  min-height: 78px;
+  padding: 12px;
+}
+
+.pra-kpis.pra-kpis-six .pra-kpi b {
+  font-size: clamp(17px, 1.3vw, 21px);
+  letter-spacing: -.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pra-board-note .pra-callout {
+  margin-bottom: 0;
+}
+
+.pra-board-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 2px 0 10px;
+}
+
+.pra-board-head b {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--pra-ink2);
+}
+
+.pra-board-head span {
+  font-size: 11.5px;
+  color: #7b8ea3;
+}
+
+/* ---------- 17.1 任务看板 4 列 ---------- */
+.pra-board {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.pra-board-col {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--pra-card);
+  border: 1px solid var(--pra-line);
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(20, 35, 50, .05);
+  overflow: hidden;
+}
+
+.pra-board-col > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 12px;
+  background: linear-gradient(180deg, #fbfcfe, #f4f8fc);
+  border-bottom: 1px solid #e8eff6;
+}
+
+.pra-board-col > header b {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--pra-ink2);
+}
+
+.pra-board-col > header em {
+  flex: 0 0 auto;
+  font-style: normal;
+  font-size: 11.5px;
+  font-weight: 800;
+  line-height: 1.7;
+  color: #1f6f69;
+  background: #eaf7f6;
+  border: 1px solid #cfe8e5;
+  border-radius: 999px;
+  padding: 0 8px;
+  white-space: nowrap;
+}
+
+.pra-board-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px 12px;
+}
+
+.pra-board-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pra-board-item {
+  min-width: 0;
+  padding: 6px 9px;
+  background: #fbfdff;
+  border: 1px solid #e9f0f7;
+  border-left: 3px solid #c9d7e4;
+  border-radius: 8px;
+}
+
+.pra-board-item.warn {
+  background: #fffdf6;
+  border-left-color: #e0b152;
+}
+
+.pra-board-item.done {
+  border-left-color: #7fc2a6;
+}
+
+.pra-board-item.draft {
+  background: #fffcf5;
+  border-left-color: #c99b45;
+}
+
+.pra-board-line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+}
+
+.pra-board-line + .pra-board-line {
+  margin-top: 3px;
+}
+
+.pra-board-no {
+  flex: 0 0 auto;
+  font-size: 11px;
+  font-weight: 800;
+  color: #9aabbc;
+  font-variant-numeric: tabular-nums;
+}
+
+.pra-board-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--pra-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pra-board-party {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 11.5px;
+  color: var(--pra-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pra-board-qty {
+  flex: 0 0 auto;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #8a5a12;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.pra-board-amt {
+  flex: 0 0 auto;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--pra-ink2);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* 注：.pra-issued-no 已有基础样式（第 7 节，10px 等宽灰字），此处仅在看板条目内覆盖为 11px 深绿 */
+.pra-board-item .pra-issued-no {
+  flex: 0 0 auto;
+  max-width: 52%;
+  font-size: 11px;
+  font-weight: 700;
+  color: #0f6b4f;
+  font-variant-numeric: tabular-nums;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pra-board-state {
+  flex: 0 0 auto;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.7;
+  color: #9a6b1a;
+  background: #fdf6e6;
+  border: 1px solid #f0dfb8;
+  border-radius: 999px;
+  padding: 0 7px;
+  white-space: nowrap;
+}
+
+.pra-board-empty {
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: #93a4b5;
+  padding: 8px 2px;
+}
+
+.pra-board-more {
+  align-self: flex-start;
+  margin-top: 2px;
+}
+
+.pra-board-body .pra-tnote {
+  padding-top: 2px;
+  font-size: 11px;
+}
+
+/* ---------- 17.2 模块任务卡 6 张 ---------- */
+.pra-taskgrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.pra-taskcard {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+  text-align: left;
+  padding: 12px 14px 11px;
+  background: var(--pra-card);
+  border: 1px solid var(--pra-line);
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(20, 35, 50, .05);
+  font: inherit;
+  font-size: 12.5px;
+  color: var(--pra-text);
+  cursor: pointer;
+  transition: border-color .15s ease, box-shadow .15s ease, transform .1s ease;
+}
+
+.pra-taskcard:hover {
+  border-color: #b9cddd;
+  box-shadow: 0 4px 16px rgba(20, 35, 50, .09);
+}
+
+.pra-taskcard:active {
+  transform: translateY(1px);
+}
+
+.pra-taskcard:focus-visible {
+  outline: 3px solid rgba(14, 74, 138, .22);
+  outline-offset: 1px;
+}
+
+.pra-taskcard[data-go="agent"] {
+  border-left: 3px solid var(--pra-gold2);
+}
+
+.pra-taskcard-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--pra-ink2);
+}
+
+.pra-taskcard-desc {
+  font-size: 12px;
+  line-height: 1.55;
+  color: #63798e;
+}
+
+.pra-taskcard-go {
+  margin-top: 2px;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #0e4a8a;
+}
+
+/* ---------- 17.3 看板响应式：窄屏 4 列 → 2 列 → 1 列 ---------- */
+@media (max-width: 1180px) {
+  .pra-kpis.pra-kpis-six {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .pra-kpis.pra-kpis-six .pra-kpi b {
+    font-size: 20px;
+  }
+
+  .pra-board {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pra-taskgrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .pra-kpis.pra-kpis-six {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pra-board,
+  .pra-taskgrid {
+    grid-template-columns: 1fr;
+  }
+
+  .pra-board-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .pra-taskcard {
+    padding: 10px 12px;
+  }
+}
+
+@media print {
+
+  .pra-board,
+  .pra-taskgrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pra-taskcard {
+    box-shadow: none;
+  }
+}
+
+/* ------------------------------------------------------------------
+ * 18. 发票开具：待开票事项快选条（V1.9）
+ * ------------------------------------------------------------------ */
+.pra-issue-pick {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  border: 1px solid #dbe8f3;
+  border-radius: 10px;
+  background: #f7fbff;
+}
+
+.pra-issue-pick-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--pra-ink2, #12324c);
+  white-space: nowrap;
+}
+
+.pra-issue-pick .pra-select {
+  flex: 1;
+  min-width: 260px;
+  max-width: 620px;
+}
+
+.pra-issue-pick-note {
+  font-style: normal;
+  font-size: 11.5px;
+  color: #7b8ea3;
+}
+
+@media (max-width: 760px) {
+  .pra-issue-pick .pra-select {
+    flex-basis: 100%;
+    min-width: 0;
+  }
+}
+
+/* ------------------------------------------------------------------
+ * 19. 已开发票（V2.0）：时间/客户/类型/来源筛选
+ * ------------------------------------------------------------------ */
+.pra-issued-toolbar {
+  align-items: flex-start;
+  gap: 10px 14px;
+}
+
+.pra-date-box {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-right: 8px;
+  border-right: 1px dashed #e2ebf3;
+}
+
+.pra-date-box .pra-input {
+  width: 148px;
+  min-height: 30px;
+  font-size: 12px;
+}
+
+.pra-date-sep {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.pra-sel-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  flex: 1;
+  min-width: 0;
+}
+
+.pra-sel-box .pra-select {
+  min-height: 30px;
+  font-size: 12px;
+  max-width: 190px;
+}
+
+.pra-sel-box .pra-input {
+  flex: 1;
+  min-width: 180px;
+  max-width: 300px;
+  min-height: 30px;
+  font-size: 12px;
+}
+
+.pra-src-tag {
+  display: inline-block;
+  font-size: 10.5px;
+  line-height: 1.7;
+  padding: 0 8px;
+  border-radius: 9px;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+.pra-src-tag.live {
+  color: #0f6b4f;
+  background: #eef7f2;
+  border-color: #cbe6d8;
+}
+
+.pra-src-tag.doc {
+  color: #0e4a8a;
+  background: #eef5fb;
+  border-color: #d6e4f2;
+}
+
+@media (max-width: 1200px) {
+  .pra-sel-box { flex-basis: 100%; }
+  .pra-sel-box .pra-input { max-width: none; }
+}
+
+@media (max-width: 760px) {
+  .pra-date-box { border-right: 0; }
+  .pra-date-box .pra-input { width: 132px; }
+}
+
+/* ------------------------------------------------------------------
+ * 21. 被驳回申请（V2.1）：列表原因列 + 详情窗口
+ * ------------------------------------------------------------------ */
+.pra-tbl td.pra-reason {
+  font-size: 11.5px;
+  color: #7a3d00;
+  max-width: 320px;
+  line-height: 1.5;
+}
+
+.pra-rej-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--pra-line, #dfe7f0);
+}
+
+.pra-rej-head b {
+  font-size: 15px;
+  color: var(--pra-ink2, #12324c);
+  font-family: Consolas, 'Courier New', monospace;
+}
+
+.pra-rej-head span {
+  font-size: 11.5px;
+  color: #7b8ea3;
+}
+
+.pra-rej-h {
+  margin: 16px 0 8px;
+  font-size: 13.5px;
+  color: var(--pra-ink2, #12324c);
+}
+
+.pra-rej-h:first-child { margin-top: 0; }
+
+.pra-rej-item {
+  border: 1px solid #e6edf4;
+  border-left-width: 4px;
+  border-radius: 8px;
+  padding: 9px 12px;
+  margin-bottom: 8px;
+  background: #fff;
+}
+
+.pra-rej-item.bad { border-left-color: var(--pra-bad, #b91c1c); background: #fffafa; }
+.pra-rej-item.susp { border-left-color: var(--pra-warn, #9a4b00); background: #fffaf3; }
+
+.pra-rej-item b {
+  font-size: 13px;
+  color: #22374b;
+}
+
+.pra-rej-item p {
+  margin: 5px 0 0;
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: #33465a;
+}
+
+.pra-rej-item p.pra-rej-advice {
+  color: var(--pra-warn, #9a4b00);
+  background: #fdf3e6;
+  border-radius: 5px;
+  padding: 4px 8px;
+}
+
+.pra-rej-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.pra-rej-form .pra-inline-lab { width: 100%; }
+
+.pra-rej-form .pra-input { width: 100%; }
+
+@media (max-width: 700px) {
+  .pra-rej-form { grid-template-columns: 1fr; }
+}
+
+/* ==================================================================
+ * 25. 字号放大（中间档，V3.2）——放在末尾才能覆盖前文规则
+ *     取值介于原 14px 与 V3.1 的 15.5px 之间
+ * ================================================================== */
+.pra-root { font-size: 14.75px; line-height: 1.6; }
+.pra-main { padding: 16px 20px 26px; }
+
+.pra-pagehead h1 { font-size: 24px; }
+.pra-pagehead p { font-size: 13px; }
+.pra-tag { font-size: 11.5px; padding: 3px 10px; }
+
+.pra-kpi { padding: 14px 16px; min-height: 86px; }
+.pra-kpi b { font-size: 27px; }
+.pra-kpi span { font-size: 12.5px; }
+
+.pra-panel > header { padding: 11px 15px; min-height: 46px; }
+.pra-panel > header b { font-size: 15px; }
+.pra-panel > header em { font-size: 12px; }
+.pra-pb { padding: 13px 15px 15px; }
+
+.pra-callout { font-size: 13px; padding: 10px 13px; line-height: 1.68; }
+.pra-callout b { font-size: 13.5px; }
+.pra-tnote { font-size: 12px; padding-top: 8px; }
+.pra-lh { font-size: 11.5px; }
+
+.pra-tbl { font-size: 13.5px; line-height: 1.6; }
+.pra-tbl th { font-size: 12.5px; padding: 10px 11px; }
+.pra-tbl td { padding: 10px 11px; }
+.pra-tbl td.mono { font-size: 12.5px; }
+.pra-tbl td.pra-reason { font-size: 12.5px; max-width: 340px; }
+.pra-tbl th:first-child, .pra-tbl td:first-child { font-size: 12.5px; }
+
+.pra-status { font-size: 11.5px; padding: 2px 9px; }
+.pra-doc-tag { font-size: 11px; padding: 1px 7px; }
+.pra-src-tag { font-size: 11px; padding: 1px 8px; }
+
+.pra-btn { font-size: 13px; min-height: 34px; padding: 0 13px; }
+.pra-btn-sm { font-size: 12px; min-height: 29px; padding: 0 10px; }
+.pra-btn-lg { font-size: 14.5px; min-height: 42px; padding: 0 20px; }
+
+.pra-chip { font-size: 12px; padding: 3px 11px; min-height: 27px; }
+.pra-chip-label { font-size: 11.5px; }
+.pra-input, .pra-select, .pra-textarea { font-size: 13.5px; min-height: 35px; }
+.pra-inline-lab span { font-size: 12px; }
+
+.pra-date-box .pra-input { font-size: 12.5px; min-height: 33px; width: 152px; }
+.pra-sel-box .pra-select { font-size: 12.5px; min-height: 33px; }
+.pra-sel-box .pra-input { font-size: 12.5px; min-height: 33px; }
+
+.pra-board-col > header b { font-size: 14px; }
+.pra-board-col > header em { font-size: 12px; }
+.pra-board-item, .pra-board-line { font-size: 12.5px; }
+.pra-board-name { font-size: 12.5px; }
+.pra-board-party { font-size: 11.5px; }
+.pra-board-amt { font-size: 12.5px; }
+.pra-board-no { font-size: 11.5px; }
+.pra-board-empty, .pra-board-more { font-size: 12px; }
+.pra-taskcard-title { font-size: 14px; }
+.pra-taskcard-desc { font-size: 12px; }
+.pra-taskcard-go { font-size: 12px; }
+
+.pra-issue-pick-label { font-size: 13.5px; }
+.pra-issue-pick-note { font-size: 11.5px; }
+.pra-issue-ctx { font-size: 13.5px; }
+.pra-issue-ctx b { font-size: 14.5px; }
+.pra-issue-ctx span, .pra-issue-ctx-state { font-size: 12.5px; }
+
+.pra-upload-main b { font-size: 15.5px; }
+.pra-upload-main span { font-size: 13px; }
+.pra-upload-icon { width: 46px; height: 46px; font-size: 24px; }
+
+.pra-draft-meta { font-size: 12.5px; }
+.pra-draft-line { font-size: 13px; }
+.pra-vhead { font-size: 13.5px; }
+.pra-vrow { font-size: 13px; }
+.pra-warns li { font-size: 12.5px; }
+.pra-pager { font-size: 12.5px; }
+
+.pra-rej-head b { font-size: 15.5px; }
+.pra-rej-head span { font-size: 12px; }
+.pra-rej-h { font-size: 14px; }
+.pra-rej-item b { font-size: 13.5px; }
+.pra-rej-item p { font-size: 13px; }
+
+.pra-modal-head b { font-size: 15px; }
+.pra-modal-body { font-size: 13.5px; }
+.pra-f-label { font-size: 12.5px; }
+.pra-dochead-left b { font-size: 15px; }
+.pra-amt { font-size: 16px; }
+.pra-suspend { font-size: 12px; }
+
+.pra-kpis.pra-kpis-six .pra-kpi b { font-size: clamp(24px, 1.7vw, 28px); }
+.pra-kpis.pra-kpis-six .pra-kpi span { font-size: 12px; }
+.pra-quick-note { font-size: 12px; }
+
+@media (max-width: 1200px) {
+  .pra-root { font-size: 14.5px; }
+  .pra-pagehead h1 { font-size: 22px; }
+  .pra-kpi b { font-size: 24px; }
+  .pra-tbl { font-size: 13px; }
+  .pra-tbl th, .pra-tbl td { padding: 9px 10px; }
+  .pra-main { padding: 14px 15px 22px; }
+}
+
+@media (max-width: 760px) {
+  .pra-root { font-size: 14px; }
+  .pra-pagehead h1 { font-size: 20px; }
+  .pra-kpi b { font-size: 22px; }
+  .pra-tbl { font-size: 12.5px; }
+  .pra-btn-lg { font-size: 14px; min-height: 40px; }
+  .pra-upload-main b { font-size: 14.5px; }
+}
+
+/* ==================================================================
+ * 26. V4.0 视觉改造（实务系统）：暖米底 / 明快色块 / 圆润控件 / 错落标题
+ * ================================================================== */
+.pra-root {
+  --pra-card: #fffaf2;
+  --pra-bg: #e8d7c1;
+  --pra-line: #e6d9c6;
+  --pra-text: #8d8ca3;
+  --pra-muted: #a3a1b3;
+  --pra-ink: #5b5a72;
+  --pra-ink2: #5b5a72;
+  background: transparent;
+}
+.pra-root.pra-bare { background: transparent; }
+
+.pra-main { padding: 16px 20px 28px; }
+
+/* 面板：奶白圆角卡片 */
+.pra-panel {
+  border: 1px solid var(--pra-line);
+  border-radius: 18px;
+  background: var(--pra-card);
+  box-shadow: 0 4px 16px rgba(139, 120, 95, .1);
+  overflow: hidden;
+}
+
+.pra-panel > header {
+  background: linear-gradient(180deg, #fffdf8, #f9f1e4);
+  border-bottom: 1px solid var(--pra-line);
+  padding: 13px 18px;
+}
+
+.pra-panel > header b { color: #5b5a72; font-weight: 800; letter-spacing: .02em; }
+.pra-panel > header em { color: var(--pra-muted); }
+
+/* 错落标题：主标题带色块 + 下划色条，副标题右移 */
+.pra-pagehead {
+  align-items: flex-end;
+  gap: 10px 14px;
+  margin-bottom: 16px;
+  padding: 4px 2px 12px;
+  border-bottom: 0;
+}
+
+.pra-pagehead h1 {
+  position: relative;
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: .05em;
+  color: #5b5a72;
+  padding-left: 18px;
+  line-height: 1.2;
+}
+
+.pra-pagehead h1::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 5px;
+  width: 9px; height: 24px;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #f7d794, #e08a63);
+}
+
+.pra-pagehead h1::after {
+  content: '';
+  position: absolute;
+  left: 18px; bottom: -8px;
+  width: 52px; height: 5px;
+  border-radius: 4px;
+  background: #9ad5bf;
+}
+
+.pra-pagehead p {
+  margin-left: 4px;
+  margin-bottom: 2px;
+  font-size: 13px;
+  color: var(--pra-muted);
+}
+
+.pra-tag {
+  margin-left: auto;
+  border-radius: 999px;
+  border: 1px solid #e6d9c6;
+  background: #fbf0dc;
+  color: #a67c3f;
+  font-weight: 700;
+  padding: 4px 12px;
+}
+
+/* 概览卡：明快色块 */
+.pra-kpis { gap: 12px; }
+
+.pra-kpi {
+  border: 0;
+  border-radius: 18px;
+  padding: 15px 17px;
+  min-height: 88px;
+  background: #fffdf8;
+  box-shadow: 0 4px 14px rgba(139, 120, 95, .1);
+  position: relative;
+  overflow: hidden;
+}
+
+.pra-kpi::after {
+  content: '';
+  position: absolute;
+  right: -18px; bottom: -22px;
+  width: 74px; height: 74px;
+  border-radius: 50%;
+  opacity: .5;
+  background: #f7d794;
+}
+
+.pra-kpis .pra-kpi:nth-child(1) { background: linear-gradient(150deg, #fdf0dc, #f8e3c4); }
+.pra-kpis .pra-kpi:nth-child(1)::after { background: #f7d794; }
+.pra-kpis .pra-kpi:nth-child(2) { background: linear-gradient(150deg, #eaf6f0, #d8ece2); }
+.pra-kpis .pra-kpi:nth-child(2)::after { background: #9ad5bf; }
+.pra-kpis .pra-kpi:nth-child(3) { background: linear-gradient(150deg, #eef2fb, #dfe7f6); }
+.pra-kpis .pra-kpi:nth-child(3)::after { background: #a3b9e0; }
+.pra-kpis .pra-kpi:nth-child(4) { background: linear-gradient(150deg, #f6f1fc, #ece4f8); }
+.pra-kpis .pra-kpi:nth-child(4)::after { background: #c3b1e1; }
+.pra-kpis .pra-kpi:nth-child(5) { background: linear-gradient(150deg, #fdf0ef, #f8ddda); }
+.pra-kpis .pra-kpi:nth-child(5)::after { background: #f2b8b5; }
+.pra-kpis .pra-kpi:nth-child(6) { background: linear-gradient(150deg, #fdf3ec, #f9e2d4); }
+.pra-kpis .pra-kpi:nth-child(6)::after { background: #f4b08a; }
+
+.pra-kpi b {
+  position: relative;
+  z-index: 1;
+  color: #5b5a72;
+  font-weight: 800;
+}
+
+.pra-kpi span { position: relative; z-index: 1; color: #7d6b57; }
+
+/* 圆润按钮 */
+.pra-btn {
+  border-radius: 999px;
+  font-weight: 700;
+  border: 1px solid transparent;
+  transition: transform .12s, box-shadow .16s, background .16s;
+}
+
+.pra-btn:hover { transform: translateY(-1px); }
+
+.pra-btn-sm { border-radius: 999px; }
+
+.pra-btn-gold {
+  background: linear-gradient(150deg, #f4b08a, #e08a63);
+  color: #4a3428;
+  box-shadow: 0 4px 12px rgba(224, 138, 99, .3);
+}
+
+.pra-btn.pra-btn-ghost,
+.pra-btn-ghost {
+  background: #fffdf8;
+  border-color: #e0cfb8;
+  color: #6f6d88;
+}
+
+.pra-btn.pra-btn-ghost:hover,
+.pra-btn-ghost:hover { background: #fdf3e6; border-color: #e5c9a9; }
+
+/* 筛选胶囊 */
+.pra-chip {
+  border-radius: 999px;
+  border-color: #e6d9c6;
+  background: #fffdf8;
+  color: #7d6b57;
+  font-weight: 600;
+}
+
+.pra-chip:hover { background: #fdf3e6; border-color: #e5c9a9; color: #5b5a72; }
+
+.pra-chip.on {
+  background: linear-gradient(140deg, #f7d794, #f4b08a);
+  border-color: #eec49a;
+  color: #4a3428;
+  box-shadow: 0 3px 8px rgba(247, 215, 148, .45);
+}
+
+.pra-chip-label { color: #a3a1b3; font-weight: 700; }
+
+/* 表格：暖色 */
+.pra-tbl th {
+  background: #f8efe2;
+  color: #6f6d88;
+  border-bottom: 1px solid #e6d9c6;
+  font-weight: 700;
+}
+
+.pra-tbl td { border-bottom: 1px solid #f4ebdd; color: #8d8ca3; }
+.pra-tbl td.first { color: #5b5a72; }
+.pra-tbl td.num { color: #5b5a72; font-weight: 600; }
+.pra-tbl tbody tr:nth-child(even) td { background: #fffdf8; }
+.pra-tbl tbody tr:hover td { background: #fdf6ea; }
+.pra-tblwrap { border: 1px solid #e6d9c6; border-radius: 14px; background: #fffdf8; }
+
+/* 状态胶囊：明快色块 */
+.pra-status { border-radius: 999px; font-weight: 700; padding: 2px 11px; }
+.pra-status.ok { background: #e7f4ec; color: #4f9d7f; border-color: #c7e5d5; }
+.pra-status.warn { background: #fbf0dc; color: #bf8434; border-color: #eed9b4; }
+.pra-status.bad { background: #fbe9e6; color: #c05b52; border-color: #f2cdc8; }
+.pra-status.done { background: linear-gradient(140deg, #f7d794, #f4b08a); color: #4a3428; border-color: #eec49a; }
+
+.pra-doc-tag { border-radius: 999px; font-weight: 600; }
+.pra-src-tag { border-radius: 999px; font-weight: 700; }
+.pra-src-tag.live { background: #e7f4ec; color: #4f9d7f; border-color: #c7e5d5; }
+.pra-src-tag.doc { background: #eef2fb; color: #5b6f9a; border-color: #d8e0f2; }
+
+/* 输入控件圆润 */
+.pra-input, .pra-select, .pra-textarea {
+  border-radius: 12px;
+  border-color: #e0cfb8;
+  background: #fffdf8;
+  color: #5b5a72;
+}
+
+.pra-input:focus, .pra-select:focus, .pra-textarea:focus {
+  outline: 3px solid rgba(224, 138, 99, .22);
+  border-color: #e08a63;
+}
+
+/* 提示条 */
+.pra-callout { border-radius: 14px; }
+.pra-callout.info { background: #f7f0ff; border-color: #e6dcf5; color: #7b6f95; }
+.pra-callout.gold { background: #fdf3e4; border: 1px solid #efd9b8; color: #8a6415; }
+.pra-tnote { color: #a3a1b3; }
+
+/* 任务卡：明快色块 + 图标 */
+.pra-taskcard {
+  border: 0;
+  border-radius: 18px;
+  background: #fffdf8;
+  box-shadow: 0 4px 14px rgba(139, 120, 95, .1);
+  padding: 16px 17px;
+  text-align: left;
+  transition: transform .14s, box-shadow .16s;
+}
+
+.pra-taskcard:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(139, 120, 95, .16); }
+
+.pra-taskcard .task-ico {
+  width: 38px; height: 38px;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 9px;
+  background: #f8efe1;
+  color: #e08a63;
+}
+
+.pra-taskcard .task-ico svg { width: 20px; height: 20px; }
+.pra-taskcard[data-go="newbusiness"] .task-ico { background: #fdf0dc; color: #bf8434; }
+.pra-taskcard[data-go="pending"] .task-ico { background: #eaf6f0; color: #4f9d7f; }
+.pra-taskcard[data-go="ledger"] .task-ico { background: #eef2fb; color: #5b6f9a; }
+.pra-taskcard[data-go="issue"] .task-ico { background: #f6f1fc; color: #7b6f95; }
+.pra-taskcard[data-go="invoices"] .task-ico { background: #fdf0ef; color: #c05b52; }
+.pra-taskcard[data-go="agent"] .task-ico { background: #fdf3ec; color: #e08a63; }
+
+.pra-taskcard-title { color: #5b5a72; font-weight: 800; }
+.pra-taskcard-desc { color: #8d8ca3; }
+.pra-taskcard-go { color: #e08a63; font-weight: 700; }
+
+/* 看板列 */
+.pra-board-col {
+  border: 1px solid #e6d9c6;
+  border-radius: 16px;
+  background: #fffdf8;
+  overflow: hidden;
+}
+
+.pra-board-col > header {
+  background: linear-gradient(180deg, #fffdf8, #f9f1e4);
+  border-bottom: 1px solid #e6d9c6;
+  padding: 11px 14px;
+}
+
+.pra-board-col > header b { color: #5b5a72; }
+.pra-board-col > header em { color: #a67c3f; background: #fbf0dc; border-radius: 999px; padding: 1px 9px; }
+
+.pra-board-item { border-bottom: 1px dashed #f0e4d2; }
+.pra-board-no {
+  background: #fbf0dc; color: #a67c3f;
+  border-radius: 999px; font-weight: 800;
+}
+.pra-board-name { color: #5b5a72; font-weight: 600; }
+.pra-board-party { color: #a3a1b3; }
+.pra-board-amt { color: #5b5a72; font-weight: 700; }
+
+/* 上传卡 */
+.pra-upload {
+  border: 2px dashed #ddc9ae;
+  border-radius: 18px;
+  background: #fffdf8;
+}
+
+.pra-upload:hover { border-color: #e08a63; background: #fffaf1; }
+
+.pra-upload-icon {
+  background: linear-gradient(150deg, #f7d794, #e08a63);
+  color: #4a3428;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(224, 138, 99, .3);
+}
+
+/* 发票开具上下文条 */
+.pra-issue-ctx {
+  border-radius: 14px;
+  background: #f8f4ff;
+  border-color: #e6dcf5;
+  color: #6f6d88;
+}
+
+.pra-issue-ctx b { color: #5b5a72; }
+.pra-issue-ctx-tag { background: #5b5a72; color: #fff; border-radius: 999px; }
+.pra-issue-ctx-state { background: #fbf0dc; color: #a67c3f; border-color: #eed9b4; border-radius: 999px; }
+.pra-issue-ctx.empty { background: #fdf3e4; border-color: #efd9b8; }
+.pra-issue-pick { border-radius: 14px; background: #f8f9ff; border-color: #e2e4f2; }
+.pra-issue-pick-label { color: #5b5a72; }
+
+/* 被驳回详情 */
+.pra-rej-item { border-radius: 14px; border-color: #e6d9c6; }
+.pra-rej-item.bad { background: #fffaf8; }
+.pra-rej-item.susp { background: #fffcf5; }
+.pra-rej-head { border-bottom-color: #e6d9c6; }
+.pra-rej-h { color: #5b5a72; }
+.pra-modal { border-radius: 18px; }
+.pra-modal-head { background: linear-gradient(180deg, #fffdf8, #f9f1e4); }
+.pra-modal-card, .pra-modal-body { background: #fffdf8; }
+
+/* 底部提示条 */
+.pra-toast { background: #5b5a72; border-radius: 999px; }
+
+/* 空态插画 */
+.pra-empty,
+.pra-tbl td.pra-empty {
+  color: #a3a1b3;
+  background: #fffdf8;
+}
+
+.pra-tbl td.pra-empty::before {
+  content: '';
+  display: block;
+  width: 54px; height: 54px;
+  margin: 0 auto 8px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none' stroke='%23e08a63' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><rect x='12' y='14' width='34' height='40' rx='5'/><path d='M20 24h18M20 32h18M20 40h11'/><circle cx='48' cy='44' r='12' fill='%23f7d794' stroke='%23e08a63'/><path d='M48 38v7M48 49h.01'/></svg>");
+}
+
+/* ---------- 任务卡统一图标（CSS 生成，避免改动 JS 结构） ---------- */
+.pra-taskcard::before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 10px;
+  border-radius: 14px;
+  background-color: #f8efe1;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 21px 21px;
+}
+
+.pra-taskcard[data-go="newbusiness"]::before {
+  background-color: #fdf0dc;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23bf8434' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z'/><path d='M14 3v5h5'/><path d='M12 12v6M9 15h6'/></svg>");
+}
+
+.pra-taskcard[data-go="pending"]::before {
+  background-color: #eaf6f0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234f9d7f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M9 6h12M9 12h12M9 18h12'/><circle cx='4' cy='6' r='1.2'/><circle cx='4' cy='12' r='1.2'/><circle cx='4' cy='18' r='1.2'/></svg>");
+}
+
+.pra-taskcard[data-go="ledger"]::before {
+  background-color: #eef2fb;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235b6f9a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z'/><path d='M14 3v5h5'/><path d='M9 13h6M9 17h4'/></svg>");
+}
+
+.pra-taskcard[data-go="issue"]::before {
+  background-color: #f6f1fc;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237b6f95' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M6 3h12v18l-3-2-3 2-3-2-3 2z'/><path d='M9 8h6M9 12h6'/></svg>");
+}
+
+.pra-taskcard[data-go="invoices"]::before {
+  background-color: #fdf0ef;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c05b52' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M4 5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2z'/><path d='M8 7h8M8 11h8'/></svg>");
+}
+
+.pra-taskcard[data-go="agent"]::before {
+  background-color: #fdf3ec;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e08a63' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='3.2'/><path d='M12 3v3.4M12 17.6V21M3 12h3.4M17.6 12H21'/></svg>");
+}
+
+/* ==================================================================
+ * 28. 工作台预览改版（V4.2）：看板同框 + 顶部四态切换 + 纵向压缩
+ * ================================================================== */
+
+/* 概览卡：5 张 */
+.pra-kpis.pra-kpis-five {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.pra-kpis.pra-kpis-five .pra-kpi { min-height: 78px; padding: 12px 14px; }
+.pra-kpis.pra-kpis-five .pra-kpi b { font-size: clamp(21px, 1.4vw, 25px); }
+.pra-kpis.pra-kpis-five .pra-kpi span { font-size: 12px; }
+
+/* 看板：一个框体内切换 */
+.pra-board-box {
+  border: 1px solid var(--pra-line, #e6d9c6);
+  border-radius: 18px;
+  background: #fffaf2;
+  box-shadow: 0 4px 16px rgba(139, 120, 95, .1);
+  padding: 11px 14px 13px;
+  margin-bottom: 10px;
+}
+
+.pra-board-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-bottom: 11px;
+  margin-bottom: 6px;
+  border-bottom: 1px dashed #ece0cd;
+}
+
+.pra-board-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 15px;
+  border-radius: 999px;
+  border: 1px solid #e6d9c6;
+  background: #fffdf8;
+  color: #6f6d88;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .15s, box-shadow .16s, transform .12s;
+}
+
+.pra-board-tab:hover { background: #fdf3e6; border-color: #e5c9a9; transform: translateY(-1px); }
+
+.pra-board-tab em {
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 700;
+  color: #a67c3f;
+  background: #fbf0dc;
+  border-radius: 999px;
+  padding: 1px 9px;
+}
+
+.pra-board-tab.on {
+  background: linear-gradient(140deg, #f7d794, #f4b08a);
+  border-color: #eec49a;
+  color: #4a3428;
+  box-shadow: 0 4px 12px rgba(247, 215, 148, .42);
+}
+
+.pra-board-tab.on em { background: rgba(74, 52, 40, .16); color: #4a3428; }
+
+.pra-board-pane { display: none; }
+.pra-board-pane.on { display: block; }
+
+/* 纵向压缩：最多约 4~5 行，超出内部滚动 */
+.pra-board-pane.on {
+  max-height: 162px;
+  overflow-y: auto;
+  padding: 4px 2px 0;
+}
+
+.pra-board-list { list-style: none; margin: 0; padding: 0; }
+
+.pra-board-item {
+  display: grid;
+  grid-template-columns: 24px minmax(110px, 1.25fr) minmax(110px, 1fr) 108px;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 4px;
+  border-bottom: 1px dashed #f0e4d2;
+  font-size: 13px;
+}
+
+.pra-board-item:last-child { border-bottom: 0; }
+.pra-board-item.done { grid-template-columns: 24px minmax(110px, 1.25fr) minmax(110px, 1fr) 118px; }
+.pra-board-item.warn { grid-template-columns: minmax(110px, 1fr) 74px minmax(110px, 1fr) 108px; }
+.pra-board-item.draft { grid-template-columns: minmax(110px, 1fr) minmax(110px, 1fr) 118px 96px; }
+
+.pra-board-no {
+  width: 22px; height: 22px;
+  display: grid; place-items: center;
+  border-radius: 999px;
+  background: #fbf0dc;
+  color: #a67c3f;
+  font-size: 11.5px;
+  font-weight: 800;
+}
+
+.pra-board-name { color: #5b5a72; font-weight: 700; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pra-board-party { color: #a3a1b3; font-size: 12.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pra-board-amt { color: #5b5a72; font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
+.pra-board-qty { color: #bf8434; font-weight: 700; text-align: center; }
+.pra-issued-no { color: #5b6f9a; font-family: Consolas, monospace; font-size: 12px; text-align: right; }
+.pra-board-state { color: #a67c3f; background: #fbf0dc; border-radius: 999px; padding: 1px 9px; font-size: 12px; font-weight: 700; text-align: center; }
+
+.pra-board-empty {
+  padding: 22px 12px;
+  text-align: center;
+  color: #a3a1b3;
+  font-size: 13px;
+  background: #fffdf8;
+  border: 1px dashed #e6d9c6;
+  border-radius: 14px;
+}
+
+.pra-board-foot { display: flex; gap: 8px; margin-top: 10px; }
+
+/* 区块小标题更紧凑 */
+.pra-board-head { margin: 2px 0 7px; display: flex; align-items: baseline; gap: 10px; }
+.pra-board-head b { font-size: 15px; color: #5b5a72; }
+.pra-board-head span { font-size: 12px; color: #a3a1b3; }
+
+.pra-board-note { margin-top: 4px; }
+.pra-board-note .pra-callout { margin: 0; }
+
+/* 任务卡：上移并收紧 */
+.pra-taskgrid { gap: 10px; margin-bottom: 10px; }
+.pra-taskcard { padding: 13px 15px; }
+.pra-taskcard::before { width: 34px; height: 34px; margin-bottom: 8px; background-size: 18px 18px; }
+
+@media (max-width: 1200px) {
+  .pra-kpis.pra-kpis-five { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .pra-board-pane.on { max-height: 210px; }
+}
+
+@media (max-width: 760px) {
+  .pra-kpis.pra-kpis-five { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pra-board-item,
+  .pra-board-item.done,
+  .pra-board-item.warn,
+  .pra-board-item.draft { grid-template-columns: 22px minmax(90px, 1fr) 96px; }
+  .pra-board-party { display: none; }
+}

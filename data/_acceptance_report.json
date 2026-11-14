@@ -1,0 +1,1153 @@
+{
+ "generatedAt": "2026-11-14T09:19:25.897Z",
+ "engine": "src/engine.js",
+ "dataset": "P1-01-发票开具-勾选数据集（175 张单据 / 4 张表 / 22 条用例）",
+ "metrics": [
+  {
+   "name": "单据分类识别准确率",
+   "value": "100.00%",
+   "target": "≥98%",
+   "pass": true
+  },
+  {
+   "name": "关键字段提取准确率",
+   "value": "99.86%",
+   "target": "≥98%",
+   "pass": true
+  },
+  {
+   "name": "字段来源可追溯率",
+   "value": "100.00%",
+   "target": "≥99%",
+   "pass": true
+  },
+  {
+   "name": "开票申请审核覆盖率",
+   "value": "100.00%",
+   "target": "=100%",
+   "pass": true
+  },
+  {
+   "name": "通过申请草稿生成率",
+   "value": "100.00%",
+   "target": "=100%",
+   "pass": true
+  },
+  {
+   "name": "审核记录完整性",
+   "value": "100.00%",
+   "target": "=100%",
+   "pass": true
+  },
+  {
+   "name": "高风险误拒/漏放",
+   "value": "0",
+   "target": "0",
+   "pass": true
+  },
+  {
+   "name": "负向用例拦截",
+   "value": "6/6",
+   "target": "全部拦截",
+   "pass": true
+  },
+  {
+   "name": "内嵌测试示例",
+   "value": "2/2",
+   "target": "2/2",
+   "pass": true
+  }
+ ],
+ "allPass": true,
+ "details": {
+  "classification": {
+   "total": 175,
+   "ok": 175,
+   "bad": []
+  },
+  "fieldExtraction": {
+   "total": 700,
+   "ok": 699,
+   "bad": [
+    {
+     "id": "WS-202512-001",
+     "name": "对方单位",
+     "got": "DECKEL MAHO GMBH",
+     "want": "上海海关"
+    }
+   ]
+  },
+  "traceability": {
+   "allFields": 4456,
+   "locFields": 4456,
+   "extractFields": 1014,
+   "extractLoc": 1014
+  },
+  "applications": [
+   {
+    "applicationNo": "INV-2025-12-001",
+    "result": "pass",
+    "riskLevel": "mid",
+    "checks": [
+     {
+      "key": "check_title",
+      "name": "抬头一致性",
+      "status": "warn"
+     },
+     {
+      "key": "check_tax_rate",
+      "name": "税率正确性",
+      "status": "pass"
+     },
+     {
+      "key": "check_amount",
+      "name": "金额一致性",
+      "status": "pass"
+     },
+     {
+      "key": "check_scope",
+      "name": "开票范围",
+      "status": "pass"
+     },
+     {
+      "key": "check_date",
+      "name": "日期合理性",
+      "status": "pass"
+     },
+     {
+      "key": "check_duplicate",
+      "name": "重复开票校验",
+      "status": "pass"
+     }
+    ],
+    "draft": {
+     "draftNo": "DRF-512001",
+     "invoiceType": "增值税专用发票",
+     "taxRate": "13%",
+     "amountTotal": 30510000
+    },
+    "summary": "审核通过：5/6 项检查通过（含 1 项提示），业务\"五轴数控机床 HMC-800\"金额 30,510,000.00 元，已生成待确认开票草稿。"
+   },
+   {
+    "applicationNo": "INV-2025-12-002",
+    "result": "pass",
+    "riskLevel": "mid",
+    "checks": [
+     {
+      "key": "check_title",
+      "name": "抬头一致性",
+      "status": "warn"
+     },
+     {
+      "key": "check_tax_rate",
+      "name": "税率正确性",
+      "status": "pass"
+     },
+     {
+      "key": "check_amount",
+      "name": "金额一致性",
+      "status": "pass"
+     },
+     {
+      "key": "check_scope",
+      "name": "开票范围",
+      "status": "warn"
+     },
+     {
+      "key": "check_date",
+      "name": "日期合理性",
+      "status": "pass"
+     },
+     {
+      "key": "check_duplicate",
+      "name": "重复开票校验",
+      "status": "pass"
+     }
+    ],
+    "draft": {
+     "draftNo": "DRF-512003",
+     "invoiceType": "出口发票",
+     "taxRate": "0%",
+     "amountTotal": 6000000
+    },
+    "summary": "审核通过：4/6 项检查通过（含 2 项提示），业务\"五轴数控机床 HMC-800\"金额 6,000,000.00 元，已生成待确认开票草稿。"
+   },
+   {
+    "applicationNo": "INV-2025-12-003",
+    "result": "pass",
+    "riskLevel": "mid",
+    "checks": [
+     {
+      "key": "check_title",
+      "name": "抬头一致性",
+      "status": "warn"
+     },
+     {
+      "key": "check_tax_rate",
+      "name": "税率正确性",
+      "status": "pass"
+     },
+     {
+      "key": "check_amount",
+      "name": "金额一致性",
+      "status": "pass"
+     },
+     {
+      "key": "check_scope",
+      "name": "开票范围",
+      "status": "pass"
+     },
+     {
+      "key": "check_date",
+      "name": "日期合理性",
+      "status": "pass"
+     },
+     {
+      "key": "check_duplicate",
+      "name": "重复开票校验",
+      "status": "pass"
+     }
+    ],
+    "draft": {
+     "draftNo": "DRF-512004",
+     "invoiceType": "增值税专用发票",
+     "taxRate": "13%",
+     "amountTotal": 7910000
+    },
+    "summary": "审核通过：5/6 项检查通过（含 1 项提示），业务\"智能产线集成 HLine-3\"金额 7,910,000.00 元，已生成待确认开票草稿。"
+   },
+   {
+    "applicationNo": "INV-2025-12-004",
+    "result": "pass",
+    "riskLevel": "mid",
+    "checks": [
+     {
+      "key": "check_title",
+      "name": "抬头一致性",
+      "status": "warn"
+     },
+     {
+      "key": "check_tax_rate",
+      "name": "税率正确性",
+      "status": "pass"
+     },
+     {
+      "key": "check_amount",
+      "name": "金额一致性",
+      "status": "pass"
+     },
+     {
+      "key": "check_scope",
+      "name": "开票范围",
+      "status": "pass"
+     },
+     {
+      "key": "check_date",
+      "name": "日期合理性",
+      "status": "pass"
+     },
+     {
+      "key": "check_duplicate",
+      "name": "重复开票校验",
+      "status": "pass"
+     }
+    ],
+    "draft": {
+     "draftNo": "DRF-512005",
+     "invoiceType": "增值税专用发票",
+     "taxRate": "13%",
+     "amountTotal": 7910000
+    },
+    "summary": "审核通过：5/6 项检查通过（含 1 项提示），业务\"智能产线集成 HLine-3\"金额 7,910,000.00 元，已生成待确认开票草稿。"
+   },
+   {
+    "applicationNo": "INV-2025-12-005",
+    "result": "pass",
+    "riskLevel": "mid",
+    "checks": [
+     {
+      "key": "check_title",
+      "name": "抬头一致性",
+      "status": "warn"
+     },
+     {
+      "key": "check_tax_rate",
+      "name": "税率正确性",
+      "status": "pass"
+     },
+     {
+      "key": "check_amount",
+      "name": "金额一致性",
+      "status": "pass"
+     },
+     {
+      "key": "check_scope",
+      "name": "开票范围",
+      "status": "pass"
+     },
+     {
+      "key": "check_date",
+      "name": "日期合理性",
+      "status": "pass"
+     },
+     {
+      "key": "check_duplicate",
+      "name": "重复开票校验",
+      "status": "pass"
+     }
+    ],
+    "draft": {
+     "draftNo": "DRF-512006",
+     "invoiceType": "增值税专用发票",
+     "taxRate": "13%",
+     "amountTotal": 3051000
+    },
+    "summary": "审核通过：5/6 项检查通过（含 1 项提示），业务\"精密功能部件 HK-220\"金额 3,051,000.00 元，已生成待确认开票草稿。"
+   },
+   {
+    "applicationNo": "INV-2025-12-006",
+    "result": "pass",
+    "riskLevel": "mid",
+    "checks": [
+     {
+      "key": "check_title",
+      "name": "抬头一致性",
+      "status": "warn"
+     },
+     {
+      "key": "check_tax_rate",
+      "name": "税率正确性",
+      "status": "pass"
+     },
+     {
+      "key": "check_amount",
+      "name": "金额一致性",
+      "status": "pass"
+     },
+     {
+      "key": "check_scope",
+      "name": "开票范围",
+      "status": "pass"
+     },
+     {
+      "key": "check_date",
+      "name": "日期合理性",
+      "status": "pass"
+     },
+     {
+      "key": "check_duplicate",
+      "name": "重复开票校验",
+      "status": "pass"
+     }
+    ],
+    "draft": {
+     "draftNo": "DRF-512007",
+     "invoiceType": "增值税专用发票",
+     "taxRate": "13%",
+     "amountTotal": 2712000
+    },
+    "summary": "审核通过：5/6 项检查通过（含 1 项提示），业务\"工业机器人工作站 HR-6\"金额 2,712,000.00 元，已生成待确认开票草稿。"
+   },
+   {
+    "applicationNo": "INV-2025-12-007",
+    "result": "pass",
+    "riskLevel": "mid",
+    "checks": [
+     {
+      "key": "check_title",
+      "name": "抬头一致性",
+      "status": "warn"
+     },
+     {
+      "key": "check_tax_rate",
+      "name": "税率正确性",
+      "status": "pass"
+     },
+     {
+      "key": "check_amount",
+      "name": "金额一致性",
+      "status": "pass"
+     },
+     {
+      "key": "check_scope",
+      "name": "开票范围",
+      "status": "pass"
+     },
+     {
+      "key": "check_date",
+      "name": "日期合理性",
+      "status": "pass"
+     },
+     {
+      "key": "check_duplicate",
+      "name": "重复开票校验",
+      "status": "pass"
+     }
+    ],
+    "draft": {
+     "draftNo": "DRF-512008",
+     "invoiceType": "增值税专用发票",
+     "taxRate": "13%",
+     "amountTotal": 2034000
+    },
+    "summary": "审核通过：5/6 项检查通过（含 1 项提示），业务\"精密功能部件 HK-220\"金额 2,034,000.00 元，已生成待确认开票草稿。"
+   },
+   {
+    "applicationNo": "INV-2025-12-008",
+    "result": "pass",
+    "riskLevel": "mid",
+    "checks": [
+     {
+      "key": "check_title",
+      "name": "抬头一致性",
+      "status": "warn"
+     },
+     {
+      "key": "check_tax_rate",
+      "name": "税率正确性",
+      "status": "pass"
+     },
+     {
+      "key": "check_amount",
+      "name": "金额一致性",
+      "status": "pass"
+     },
+     {
+      "key": "check_scope",
+      "name": "开票范围",
+      "status": "pass"
+     },
+     {
+      "key": "check_date",
+      "name": "日期合理性",
+      "status": "pass"
+     },
+     {
+      "key": "check_duplicate",
+      "name": "重复开票校验",
+      "status": "pass"
+     }
+    ],
+    "draft": {
+     "draftNo": "DRF-512009",
+     "invoiceType": "增值税专用发票",
+     "taxRate": "13%",
+     "amountTotal": 2712000
+    },
+    "summary": "审核通过：5/6 项检查通过（含 1 项提示），业务\"工业机器人工作站 HR-6\"金额 2,712,000.00 元，已生成待确认开票草稿。"
+   },
+   {
+    "applicationNo": "INV-2025-12-009",
+    "result": "pass",
+    "riskLevel": "mid",
+    "checks": [
+     {
+      "key": "check_title",
+      "name": "抬头一致性",
+      "status": "warn"
+     },
+     {
+      "key": "check_tax_rate",
+      "name": "税率正确性",
+      "status": "pass"
+     },
+     {
+      "key": "check_amount",
+      "name": "金额一致性",
+      "status": "pass"
+     },
+     {
+      "key": "check_scope",
+      "name": "开票范围",
+      "status": "pass"
+     },
+     {
+      "key": "check_date",
+      "name": "日期合理性",
+      "status": "pass"
+     },
+     {
+      "key": "check_duplicate",
+      "name": "重复开票校验",
+      "status": "pass"
+     }
+    ],
+    "draft": {
+     "draftNo": "DRF-512010",
+     "invoiceType": "增值税专用发票",
+     "taxRate": "13%",
+     "amountTotal": 5085000
+    },
+    "summary": "审核通过：5/6 项检查通过（含 1 项提示），业务\"五轴数控机床 HMC-800\"金额 5,085,000.00 元，已生成待确认开票草稿。"
+   },
+   {
+    "applicationNo": "INV-2025-12-010",
+    "result": "pass",
+    "riskLevel": "mid",
+    "checks": [
+     {
+      "key": "check_title",
+      "name": "抬头一致性",
+      "status": "warn"
+     },
+     {
+      "key": "check_tax_rate",
+      "name": "税率正确性",
+      "status": "pass"
+     },
+     {
+      "key": "check_amount",
+      "name": "金额一致性",
+      "status": "pass"
+     },
+     {
+      "key": "check_scope",
+      "name": "开票范围",
+      "status": "pass"
+     },
+     {
+      "key": "check_date",
+      "name": "日期合理性",
+      "status": "pass"
+     },
+     {
+      "key": "check_duplicate",
+      "name": "重复开票校验",
+      "status": "pass"
+     }
+    ],
+    "draft": {
+     "draftNo": "DRF-512011",
+     "invoiceType": "增值税专用发票",
+     "taxRate": "13%",
+     "amountTotal": 1536800
+    },
+    "summary": "审核通过：5/6 项检查通过（含 1 项提示），业务\"备件与售后服务\"金额 1,536,800.00 元，已生成待确认开票草稿。"
+   },
+   {
+    "applicationNo": "INV-2025-12-011",
+    "result": "pass",
+    "riskLevel": "mid",
+    "checks": [
+     {
+      "key": "check_title",
+      "name": "抬头一致性",
+      "status": "warn"
+     },
+     {
+      "key": "check_tax_rate",
+      "name": "税率正确性",
+      "status": "pass"
+     },
+     {
+      "key": "check_amount",
+      "name": "金额一致性",
+      "status": "pass"
+     },
+     {
+      "key": "check_scope",
+      "name": "开票范围",
+      "status": "pass"
+     },
+     {
+      "key": "check_date",
+      "name": "日期合理性",
+      "status": "pass"
+     },
+     {
+      "key": "check_duplicate",
+      "name": "重复开票校验",
+      "status": "pass"
+     }
+    ],
+    "draft": {
+     "draftNo": "DRF-512012",
+     "invoiceType": "增值税专用发票",
+     "taxRate": "13%",
+     "amountTotal": 10170000
+    },
+    "summary": "审核通过：5/6 项检查通过（含 1 项提示），业务\"五轴数控机床 HMC-800\"金额 10,170,000.00 元，已生成待确认开票草稿。"
+   },
+   {
+    "applicationNo": "INV-2025-12-012",
+    "result": "pass",
+    "riskLevel": "mid",
+    "checks": [
+     {
+      "key": "check_title",
+      "name": "抬头一致性",
+      "status": "warn"
+     },
+     {
+      "key": "check_tax_rate",
+      "name": "税率正确性",
+      "status": "pass"
+     },
+     {
+      "key": "check_amount",
+      "name": "金额一致性",
+      "status": "pass"
+     },
+     {
+      "key": "check_scope",
+      "name": "开票范围",
+      "status": "pass"
+     },
+     {
+      "key": "check_date",
+      "name": "日期合理性",
+      "status": "pass"
+     },
+     {
+      "key": "check_duplicate",
+      "name": "重复开票校验",
+      "status": "pass"
+     }
+    ],
+    "draft": {
+     "draftNo": "DRF-512013",
+     "invoiceType": "增值税专用发票",
+     "taxRate": "13%",
+     "amountTotal": 1152600
+    },
+    "summary": "审核通过：5/6 项检查通过（含 1 项提示），业务\"备件与售后服务\"金额 1,152,600.00 元，已生成待确认开票草稿。"
+   },
+   {
+    "applicationNo": "INV-2025-12-013",
+    "result": "pass",
+    "riskLevel": "mid",
+    "checks": [
+     {
+      "key": "check_title",
+      "name": "抬头一致性",
+      "status": "warn"
+     },
+     {
+      "key": "check_tax_rate",
+      "name": "税率正确性",
+      "status": "pass"
+     },
+     {
+      "key": "check_amount",
+      "name": "金额一致性",
+      "status": "pass"
+     },
+     {
+      "key": "check_scope",
+      "name": "开票范围",
+      "status": "pass"
+     },
+     {
+      "key": "check_date",
+      "name": "日期合理性",
+      "status": "pass"
+     },
+     {
+      "key": "check_duplicate",
+      "name": "重复开票校验",
+      "status": "pass"
+     }
+    ],
+    "draft": {
+     "draftNo": "DRF-512014",
+     "invoiceType": "增值税专用发票",
+     "taxRate": "13%",
+     "amountTotal": 7910000
+    },
+    "summary": "审核通过：5/6 项检查通过（含 1 项提示），业务\"智能产线集成 HLine-3\"金额 7,910,000.00 元，已生成待确认开票草稿。"
+   },
+   {
+    "applicationNo": "INV-2025-12-014",
+    "result": "pass",
+    "riskLevel": "mid",
+    "checks": [
+     {
+      "key": "check_title",
+      "name": "抬头一致性",
+      "status": "warn"
+     },
+     {
+      "key": "check_tax_rate",
+      "name": "税率正确性",
+      "status": "pass"
+     },
+     {
+      "key": "check_amount",
+      "name": "金额一致性",
+      "status": "pass"
+     },
+     {
+      "key": "check_scope",
+      "name": "开票范围",
+      "status": "pass"
+     },
+     {
+      "key": "check_date",
+      "name": "日期合理性",
+      "status": "pass"
+     },
+     {
+      "key": "check_duplicate",
+      "name": "重复开票校验",
+      "status": "pass"
+     }
+    ],
+    "draft": {
+     "draftNo": "DRF-512015",
+     "invoiceType": "增值税专用发票",
+     "taxRate": "13%",
+     "amountTotal": 2034000
+    },
+    "summary": "审核通过：5/6 项检查通过（含 1 项提示），业务\"精密功能部件 HK-220\"金额 2,034,000.00 元，已生成待确认开票草稿。"
+   },
+   {
+    "applicationNo": "INV-2025-12-015",
+    "result": "pass",
+    "riskLevel": "mid",
+    "checks": [
+     {
+      "key": "check_title",
+      "name": "抬头一致性",
+      "status": "warn"
+     },
+     {
+      "key": "check_tax_rate",
+      "name": "税率正确性",
+      "status": "pass"
+     },
+     {
+      "key": "check_amount",
+      "name": "金额一致性",
+      "status": "pass"
+     },
+     {
+      "key": "check_scope",
+      "name": "开票范围",
+      "status": "pass"
+     },
+     {
+      "key": "check_date",
+      "name": "日期合理性",
+      "status": "pass"
+     },
+     {
+      "key": "check_duplicate",
+      "name": "重复开票校验",
+      "status": "pass"
+     }
+    ],
+    "draft": {
+     "draftNo": "DRF-512016",
+     "invoiceType": "增值税专用发票",
+     "taxRate": "13%",
+     "amountTotal": 1921000
+    },
+    "summary": "审核通过：5/6 项检查通过（含 1 项提示），业务\"备件与售后服务\"金额 1,921,000.00 元，已生成待确认开票草稿。"
+   },
+   {
+    "applicationNo": "INV-2025-12-016",
+    "result": "pass",
+    "riskLevel": "mid",
+    "checks": [
+     {
+      "key": "check_title",
+      "name": "抬头一致性",
+      "status": "warn"
+     },
+     {
+      "key": "check_tax_rate",
+      "name": "税率正确性",
+      "status": "pass"
+     },
+     {
+      "key": "check_amount",
+      "name": "金额一致性",
+      "status": "pass"
+     },
+     {
+      "key": "check_scope",
+      "name": "开票范围",
+      "status": "pass"
+     },
+     {
+      "key": "check_date",
+      "name": "日期合理性",
+      "status": "pass"
+     },
+     {
+      "key": "check_duplicate",
+      "name": "重复开票校验",
+      "status": "pass"
+     }
+    ],
+    "draft": {
+     "draftNo": "DRF-512017",
+     "invoiceType": "增值税专用发票",
+     "taxRate": "13%",
+     "amountTotal": 5085000
+    },
+    "summary": "审核通过：5/6 项检查通过（含 1 项提示），业务\"五轴数控机床 HMC-800\"金额 5,085,000.00 元，已生成待确认开票草稿。"
+   },
+   {
+    "applicationNo": "INV-2025-12-017",
+    "result": "pass",
+    "riskLevel": "mid",
+    "checks": [
+     {
+      "key": "check_title",
+      "name": "抬头一致性",
+      "status": "warn"
+     },
+     {
+      "key": "check_tax_rate",
+      "name": "税率正确性",
+      "status": "pass"
+     },
+     {
+      "key": "check_amount",
+      "name": "金额一致性",
+      "status": "pass"
+     },
+     {
+      "key": "check_scope",
+      "name": "开票范围",
+      "status": "pass"
+     },
+     {
+      "key": "check_date",
+      "name": "日期合理性",
+      "status": "pass"
+     },
+     {
+      "key": "check_duplicate",
+      "name": "重复开票校验",
+      "status": "pass"
+     }
+    ],
+    "draft": {
+     "draftNo": "DRF-512018",
+     "invoiceType": "增值税专用发票",
+     "taxRate": "13%",
+     "amountTotal": 1356000
+    },
+    "summary": "审核通过：5/6 项检查通过（含 1 项提示），业务\"工业机器人工作站 HR-6\"金额 1,356,000.00 元，已生成待确认开票草稿。"
+   },
+   {
+    "applicationNo": "INV-2025-12-018",
+    "result": "pass",
+    "riskLevel": "mid",
+    "checks": [
+     {
+      "key": "check_title",
+      "name": "抬头一致性",
+      "status": "warn"
+     },
+     {
+      "key": "check_tax_rate",
+      "name": "税率正确性",
+      "status": "pass"
+     },
+     {
+      "key": "check_amount",
+      "name": "金额一致性",
+      "status": "pass"
+     },
+     {
+      "key": "check_scope",
+      "name": "开票范围",
+      "status": "pass"
+     },
+     {
+      "key": "check_date",
+      "name": "日期合理性",
+      "status": "pass"
+     },
+     {
+      "key": "check_duplicate",
+      "name": "重复开票校验",
+      "status": "pass"
+     }
+    ],
+    "draft": {
+     "draftNo": "DRF-512019",
+     "invoiceType": "增值税专用发票",
+     "taxRate": "13%",
+     "amountTotal": 1017000
+    },
+    "summary": "审核通过：5/6 项检查通过（含 1 项提示），业务\"精密功能部件 HK-220\"金额 1,017,000.00 元，已生成待确认开票草稿。"
+   },
+   {
+    "applicationNo": "INV-2025-12-019",
+    "result": "pass",
+    "riskLevel": "mid",
+    "checks": [
+     {
+      "key": "check_title",
+      "name": "抬头一致性",
+      "status": "warn"
+     },
+     {
+      "key": "check_tax_rate",
+      "name": "税率正确性",
+      "status": "pass"
+     },
+     {
+      "key": "check_amount",
+      "name": "金额一致性",
+      "status": "pass"
+     },
+     {
+      "key": "check_scope",
+      "name": "开票范围",
+      "status": "pass"
+     },
+     {
+      "key": "check_date",
+      "name": "日期合理性",
+      "status": "pass"
+     },
+     {
+      "key": "check_duplicate",
+      "name": "重复开票校验",
+      "status": "pass"
+     }
+    ],
+    "draft": {
+     "draftNo": "DRF-512020",
+     "invoiceType": "增值税专用发票",
+     "taxRate": "13%",
+     "amountTotal": 15255000
+    },
+    "summary": "审核通过：5/6 项检查通过（含 1 项提示），业务\"五轴数控机床 HMC-800\"金额 15,255,000.00 元，已生成待确认开票草稿。"
+   },
+   {
+    "applicationNo": "INV-2025-12-020",
+    "result": "pass",
+    "riskLevel": "mid",
+    "checks": [
+     {
+      "key": "check_title",
+      "name": "抬头一致性",
+      "status": "warn"
+     },
+     {
+      "key": "check_tax_rate",
+      "name": "税率正确性",
+      "status": "pass"
+     },
+     {
+      "key": "check_amount",
+      "name": "金额一致性",
+      "status": "pass"
+     },
+     {
+      "key": "check_scope",
+      "name": "开票范围",
+      "status": "pass"
+     },
+     {
+      "key": "check_date",
+      "name": "日期合理性",
+      "status": "pass"
+     },
+     {
+      "key": "check_duplicate",
+      "name": "重复开票校验",
+      "status": "pass"
+     }
+    ],
+    "draft": {
+     "draftNo": "DRF-512021",
+     "invoiceType": "增值税专用发票",
+     "taxRate": "13%",
+     "amountTotal": 15820000
+    },
+    "summary": "审核通过：5/6 项检查通过（含 1 项提示），业务\"智能产线集成 HLine-3\"金额 15,820,000.00 元，已生成待确认开票草稿。"
+   },
+   {
+    "applicationNo": "INV-2025-12-021",
+    "result": "pass",
+    "riskLevel": "mid",
+    "checks": [
+     {
+      "key": "check_title",
+      "name": "抬头一致性",
+      "status": "warn"
+     },
+     {
+      "key": "check_tax_rate",
+      "name": "税率正确性",
+      "status": "pass"
+     },
+     {
+      "key": "check_amount",
+      "name": "金额一致性",
+      "status": "pass"
+     },
+     {
+      "key": "check_scope",
+      "name": "开票范围",
+      "status": "pass"
+     },
+     {
+      "key": "check_date",
+      "name": "日期合理性",
+      "status": "pass"
+     },
+     {
+      "key": "check_duplicate",
+      "name": "重复开票校验",
+      "status": "pass"
+     }
+    ],
+    "draft": {
+     "draftNo": "DRF-512022",
+     "invoiceType": "增值税专用发票",
+     "taxRate": "13%",
+     "amountTotal": 4068000
+    },
+    "summary": "审核通过：5/6 项检查通过（含 1 项提示），业务\"精密功能部件 HK-220\"金额 4,068,000.00 元，已生成待确认开票草稿。"
+   },
+   {
+    "applicationNo": "INV-2025-12-022",
+    "result": "pass",
+    "riskLevel": "mid",
+    "checks": [
+     {
+      "key": "check_title",
+      "name": "抬头一致性",
+      "status": "warn"
+     },
+     {
+      "key": "check_tax_rate",
+      "name": "税率正确性",
+      "status": "pass"
+     },
+     {
+      "key": "check_amount",
+      "name": "金额一致性",
+      "status": "pass"
+     },
+     {
+      "key": "check_scope",
+      "name": "开票范围",
+      "status": "warn"
+     },
+     {
+      "key": "check_date",
+      "name": "日期合理性",
+      "status": "pass"
+     },
+     {
+      "key": "check_duplicate",
+      "name": "重复开票校验",
+      "status": "pass"
+     }
+    ],
+    "draft": {
+     "draftNo": "DRF-512023",
+     "invoiceType": "出口发票",
+     "taxRate": "0%",
+     "amountTotal": 6000000
+    },
+    "summary": "审核通过：4/6 项检查通过（含 2 项提示），业务\"智能产线集成 HLine-3\"金额 6,000,000.00 元，已生成待确认开票草稿。"
+   },
+   {
+    "applicationNo": "INV-2025-12-023",
+    "result": "suspend",
+    "riskLevel": "mid",
+    "checks": [
+     {
+      "key": "check_title",
+      "name": "抬头一致性",
+      "status": "warn"
+     },
+     {
+      "key": "check_tax_rate",
+      "name": "税率正确性",
+      "status": "pass"
+     },
+     {
+      "key": "check_amount",
+      "name": "金额一致性",
+      "status": "warn"
+     },
+     {
+      "key": "check_scope",
+      "name": "开票范围",
+      "status": "pass"
+     },
+     {
+      "key": "check_date",
+      "name": "日期合理性",
+      "status": "suspend"
+     },
+     {
+      "key": "check_duplicate",
+      "name": "重复开票校验",
+      "status": "pass"
+     }
+    ],
+    "draft": null,
+    "summary": "审核暂停：证据不齐备，未能形成通过/不通过结论，不得开票。单据中仅有「到货签收单」（YS-202512-002，2025-12-05 已签发），缺少「验收单」；控制权尚未转移，本期不得开票。请登记为待开票事项，待验收合格后重新提交审核。"
+   }
+  ],
+  "negative": [
+   {
+    "name": "N1 申请单金额与合同不一致",
+    "expect": "fail/check_amount",
+    "got": "fail/金额一致性:fail",
+    "ok": true,
+    "summary": "审核不通过：1 项检查未通过 —— 金额一致性：申请单金额与合同金额不一致：合同价税合计 30,510,000.00 元，申请单金额 27,000,000.00 元，差异 -3,510,000.00 元。"
+   },
+   {
+    "name": "N2 购买方抬头不一致",
+    "expect": "fail/check_title",
+    "got": "fail/抬头一致性:fail",
+    "ok": true,
+    "summary": "审核不通过：1 项检查未通过 —— 抬头一致性：抬头不一致：开票申请单为「广州粤海智能装备（简称）」，而 合同买方为「越南 HMC 制造有限公司」、验收单往来单位为「越南 HMC 制造有限公司」、出库单往来单位为「越南 HMC 制造有限公司」。"
+   },
+   {
+    "name": "N3 税率错误（9% 代替 13%）",
+    "expect": "fail/check_tax_rate",
+    "got": "fail/税率正确性:fail",
+    "ok": true,
+    "summary": "审核不通过：2 项检查未通过 —— 税率正确性：税率不正确：HT-202512-004-MOD 为 9%，按业务性质应为 13%（机械设备/零部件等应税货物销售适用 13%）。 金额一致性：申请单金额与合同金额不一致：合同价税合计 7,630,000.00 元，申请单金额 7,910,000.00 元，差异 280,000.00 元。"
+   },
+   {
+    "name": "N4 验收金额少于合同（部分验收）",
+    "expect": "fail/check_amount",
+    "got": "fail/金额一致性:fail",
+    "ok": true,
+    "summary": "审核不通过：1 项检查未通过 —— 金额一致性：金额不一致：合同不含税金额 7,000,000.00 元（含税 7,910,000.00 元），验收单金额合计 5,600,000.00 元，与不含税差 -1,400,000.00 元、与价税合计差 -2,310,000.00 元（验收金额偏小）。"
+   },
+   {
+    "name": "N5 同一业务重复开票",
+    "expect": "fail/check_duplicate",
+    "got": "fail/fail",
+    "ok": true,
+    "summary": "审核不通过：1 项检查未通过 —— 重复开票校验：重复开票：本会话中已对购买方「成都天府智造有限公司」金额 3,051,000.00 元开具过发票 FP-SESSION-001，同一业务不得重复开票。"
+   },
+   {
+    "name": "N6 缺验收单 → 暂缓开票",
+    "expect": "suspend/check_date",
+    "got": "suspend/日期合理性:suspend",
+    "ok": true,
+    "summary": "审核暂停：证据不齐备，未能形成通过/不通过结论，不得开票。单据中缺少「验收单」，无法确认验收合格日期与控制权转移时点。请登记为待开票事项，待验收合格后重新提交审核。"
+   }
+  ],
+  "embeddedTest": {
+   "tc1": {
+    "result": "pass",
+    "draft": true
+   },
+   "tc2": {
+    "result": "fail"
+   }
+  },
+  "export": {
+   "total": 2,
+   "ok": 2
+  }
+ }
+}

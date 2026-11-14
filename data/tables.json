@@ -1,0 +1,747 @@
+{
+ "sales": [
+  {
+   "product": "五轴数控机床 HMC-800",
+   "date": "2025-12-05",
+   "customer": "上海衡远机电设备有限公司",
+   "qty": 6.0,
+   "unitPrice": 4500000.0,
+   "amount": 27000000.0,
+   "region": "内销",
+   "contractNo": "HT-202512-001",
+   "acceptStatus": "已验收",
+   "evidence": {
+    "contract": "HT-202512-001",
+    "acceptance": "YS-202512-001",
+    "stockOut": "CK-202512-001",
+    "deliverySign": "YS-202512-002",
+    "docs": [
+     "HT-202512-001",
+     "YS-202512-001",
+     "CK-202512-001"
+    ]
+   }
+  },
+  {
+   "product": "五轴数控机床 HMC-800",
+   "date": "2025-12-06",
+   "customer": "越南 HMC 制造有限公司",
+   "qty": 2.0,
+   "unitPrice": 3000000.0,
+   "amount": 6000000.0,
+   "region": "出口",
+   "contractNo": "HT-202512-003",
+   "acceptStatus": "已验收",
+   "evidence": {
+    "contract": "HT-202512-003",
+    "acceptance": "YS-202512-003",
+    "stockOut": "CK-202512-003",
+    "deliverySign": null,
+    "docs": [
+     "HT-202512-003",
+     "YS-202512-003",
+     "CK-202512-003"
+    ]
+   }
+  },
+  {
+   "product": "智能产线集成 HLine-3",
+   "date": "2025-12-08",
+   "customer": "广州粤海智能装备有限公司",
+   "qty": 1.0,
+   "unitPrice": 7000000.0,
+   "amount": 7000000.0,
+   "region": "内销",
+   "contractNo": "HT-202512-004",
+   "acceptStatus": "已验收",
+   "evidence": {
+    "contract": "HT-202512-004",
+    "acceptance": "YS-202512-004",
+    "stockOut": "CK-202512-004",
+    "deliverySign": null,
+    "docs": [
+     "HT-202512-004",
+     "YS-202512-004",
+     "CK-202512-004"
+    ]
+   }
+  },
+  {
+   "product": "智能产线集成 HLine-3",
+   "date": "2025-12-09",
+   "customer": "北京中科精工科技有限公司",
+   "qty": 1.0,
+   "unitPrice": 7000000.0,
+   "amount": 7000000.0,
+   "region": "内销",
+   "contractNo": "HT-202512-005",
+   "acceptStatus": "已验收",
+   "evidence": {
+    "contract": "HT-202512-005",
+    "acceptance": "YS-202512-005",
+    "stockOut": "CK-202512-005",
+    "deliverySign": null,
+    "docs": [
+     "HT-202512-005",
+     "YS-202512-005",
+     "CK-202512-005"
+    ]
+   }
+  },
+  {
+   "product": "精密功能部件 HK-220",
+   "date": "2025-12-10",
+   "customer": "成都天府智造有限公司",
+   "qty": 3.0,
+   "unitPrice": 900000.0,
+   "amount": 2700000.0,
+   "region": "内销",
+   "contractNo": "HT-202512-006",
+   "acceptStatus": "已验收",
+   "evidence": {
+    "contract": "HT-202512-006",
+    "acceptance": "YS-202512-006",
+    "stockOut": "CK-202512-006",
+    "deliverySign": null,
+    "docs": [
+     "HT-202512-006",
+     "YS-202512-006",
+     "CK-202512-006"
+    ]
+   }
+  },
+  {
+   "product": "工业机器人工作站 HR-6",
+   "date": "2025-12-12",
+   "customer": "苏州工业园区精机有限公司",
+   "qty": 2.0,
+   "unitPrice": 1200000.0,
+   "amount": 2400000.0,
+   "region": "内销",
+   "contractNo": "HT-202512-007",
+   "acceptStatus": "已验收",
+   "evidence": {
+    "contract": "HT-202512-007",
+    "acceptance": "YS-202512-007",
+    "stockOut": "CK-202512-007",
+    "deliverySign": null,
+    "docs": [
+     "HT-202512-007",
+     "YS-202512-007",
+     "CK-202512-007"
+    ]
+   }
+  },
+  {
+   "product": "精密功能部件 HK-220",
+   "date": "2025-12-15",
+   "customer": "武汉长江数控有限公司",
+   "qty": 2.0,
+   "unitPrice": 900000.0,
+   "amount": 1800000.0,
+   "region": "内销",
+   "contractNo": "HT-202512-008",
+   "acceptStatus": "已验收",
+   "evidence": {
+    "contract": "HT-202512-008",
+    "acceptance": "YS-202512-008",
+    "stockOut": "CK-202512-008",
+    "deliverySign": null,
+    "docs": [
+     "HT-202512-008",
+     "YS-202512-008",
+     "CK-202512-008"
+    ]
+   }
+  },
+  {
+   "product": "工业机器人工作站 HR-6",
+   "date": "2025-12-16",
+   "customer": "青岛海德装备有限公司",
+   "qty": 2.0,
+   "unitPrice": 1200000.0,
+   "amount": 2400000.0,
+   "region": "内销",
+   "contractNo": "HT-202512-009",
+   "acceptStatus": "已验收",
+   "evidence": {
+    "contract": "HT-202512-009",
+    "acceptance": "YS-202512-009",
+    "stockOut": "CK-202512-009",
+    "deliverySign": null,
+    "docs": [
+     "HT-202512-009",
+     "YS-202512-009",
+     "CK-202512-009"
+    ]
+   }
+  },
+  {
+   "product": "五轴数控机床 HMC-800",
+   "date": "2025-12-18",
+   "customer": "宁波甬江精密部件有限公司",
+   "qty": 1.0,
+   "unitPrice": 4500000.0,
+   "amount": 4500000.0,
+   "region": "内销",
+   "contractNo": "HT-202512-010",
+   "acceptStatus": "已验收",
+   "evidence": {
+    "contract": "HT-202512-010",
+    "acceptance": "YS-202512-010",
+    "stockOut": "CK-202512-010",
+    "deliverySign": null,
+    "docs": [
+     "HT-202512-010",
+     "YS-202512-010",
+     "CK-202512-010"
+    ]
+   }
+  },
+  {
+   "product": "备件与售后服务",
+   "date": "2025-12-20",
+   "customer": "西安航天智造有限公司",
+   "qty": 4.0,
+   "unitPrice": 340000.0,
+   "amount": 1360000.0,
+   "region": "内销",
+   "contractNo": "HT-202512-011",
+   "acceptStatus": "已验收",
+   "evidence": {
+    "contract": "HT-202512-011",
+    "acceptance": "YS-202512-011",
+    "stockOut": "CK-202512-011",
+    "deliverySign": null,
+    "docs": [
+     "HT-202512-011",
+     "YS-202512-011",
+     "CK-202512-011"
+    ]
+   }
+  },
+  {
+   "product": "五轴数控机床 HMC-800",
+   "date": "2025-12-22",
+   "customer": "广州粤海智能装备有限公司",
+   "qty": 2.0,
+   "unitPrice": 4500000.0,
+   "amount": 9000000.0,
+   "region": "内销",
+   "contractNo": "HT-202512-012",
+   "acceptStatus": "已验收",
+   "evidence": {
+    "contract": "HT-202512-012",
+    "acceptance": "YS-202512-012",
+    "stockOut": "CK-202512-012",
+    "deliverySign": null,
+    "docs": [
+     "HT-202512-012",
+     "YS-202512-012",
+     "CK-202512-012"
+    ]
+   }
+  },
+  {
+   "product": "备件与售后服务",
+   "date": "2025-12-23",
+   "customer": "北京中科精工科技有限公司",
+   "qty": 3.0,
+   "unitPrice": 340000.0,
+   "amount": 1020000.0,
+   "region": "内销",
+   "contractNo": "HT-202512-013",
+   "acceptStatus": "已验收",
+   "evidence": {
+    "contract": "HT-202512-013",
+    "acceptance": "YS-202512-013",
+    "stockOut": "CK-202512-013",
+    "deliverySign": null,
+    "docs": [
+     "HT-202512-013",
+     "YS-202512-013",
+     "CK-202512-013"
+    ]
+   }
+  },
+  {
+   "product": "智能产线集成 HLine-3",
+   "date": "2025-12-25",
+   "customer": "成都天府智造有限公司",
+   "qty": 1.0,
+   "unitPrice": 7000000.0,
+   "amount": 7000000.0,
+   "region": "内销",
+   "contractNo": "HT-202512-014",
+   "acceptStatus": "已验收",
+   "evidence": {
+    "contract": "HT-202512-014",
+    "acceptance": "YS-202512-014",
+    "stockOut": "CK-202512-014",
+    "deliverySign": null,
+    "docs": [
+     "HT-202512-014",
+     "YS-202512-014",
+     "CK-202512-014"
+    ]
+   }
+  },
+  {
+   "product": "精密功能部件 HK-220",
+   "date": "2025-12-26",
+   "customer": "苏州工业园区精机有限公司",
+   "qty": 2.0,
+   "unitPrice": 900000.0,
+   "amount": 1800000.0,
+   "region": "内销",
+   "contractNo": "HT-202512-015",
+   "acceptStatus": "已验收",
+   "evidence": {
+    "contract": "HT-202512-015",
+    "acceptance": "YS-202512-015",
+    "stockOut": "CK-202512-015",
+    "deliverySign": null,
+    "docs": [
+     "HT-202512-015",
+     "YS-202512-015",
+     "CK-202512-015"
+    ]
+   }
+  },
+  {
+   "product": "备件与售后服务",
+   "date": "2025-12-27",
+   "customer": "武汉长江数控有限公司",
+   "qty": 5.0,
+   "unitPrice": 340000.0,
+   "amount": 1700000.0,
+   "region": "内销",
+   "contractNo": "HT-202512-016",
+   "acceptStatus": "已验收",
+   "evidence": {
+    "contract": "HT-202512-016",
+    "acceptance": "YS-202512-016",
+    "stockOut": "CK-202512-016",
+    "deliverySign": null,
+    "docs": [
+     "HT-202512-016",
+     "YS-202512-016",
+     "CK-202512-016"
+    ]
+   }
+  },
+  {
+   "product": "五轴数控机床 HMC-800",
+   "date": "2025-12-28",
+   "customer": "青岛海德装备有限公司",
+   "qty": 1.0,
+   "unitPrice": 4500000.0,
+   "amount": 4500000.0,
+   "region": "内销",
+   "contractNo": "HT-202512-017",
+   "acceptStatus": "已验收",
+   "evidence": {
+    "contract": "HT-202512-017",
+    "acceptance": "YS-202512-017",
+    "stockOut": "CK-202512-017",
+    "deliverySign": null,
+    "docs": [
+     "HT-202512-017",
+     "YS-202512-017",
+     "CK-202512-017"
+    ]
+   }
+  },
+  {
+   "product": "工业机器人工作站 HR-6",
+   "date": "2025-12-29",
+   "customer": "宁波甬江精密部件有限公司",
+   "qty": 1.0,
+   "unitPrice": 1200000.0,
+   "amount": 1200000.0,
+   "region": "内销",
+   "contractNo": "HT-202512-018",
+   "acceptStatus": "已验收",
+   "evidence": {
+    "contract": "HT-202512-018",
+    "acceptance": "YS-202512-018",
+    "stockOut": "CK-202512-018",
+    "deliverySign": null,
+    "docs": [
+     "HT-202512-018",
+     "YS-202512-018",
+     "CK-202512-018"
+    ]
+   }
+  },
+  {
+   "product": "精密功能部件 HK-220",
+   "date": "2025-12-30",
+   "customer": "西安航天智造有限公司",
+   "qty": 1.0,
+   "unitPrice": 900000.0,
+   "amount": 900000.0,
+   "region": "内销",
+   "contractNo": "HT-202512-019",
+   "acceptStatus": "已验收",
+   "evidence": {
+    "contract": "HT-202512-019",
+    "acceptance": "YS-202512-019",
+    "stockOut": "CK-202512-019",
+    "deliverySign": null,
+    "docs": [
+     "HT-202512-019",
+     "YS-202512-019",
+     "CK-202512-019"
+    ]
+   }
+  },
+  {
+   "product": "五轴数控机床 HMC-800",
+   "date": "2025-12-30",
+   "customer": "西安航天智造有限公司",
+   "qty": 3.0,
+   "unitPrice": 4500000.0,
+   "amount": 13500000.0,
+   "region": "内销",
+   "contractNo": "HT-202512-020",
+   "acceptStatus": "已验收",
+   "evidence": {
+    "contract": "HT-202512-020",
+    "acceptance": "YS-202512-020",
+    "stockOut": "CK-202512-020",
+    "deliverySign": null,
+    "docs": [
+     "HT-202512-020",
+     "YS-202512-020",
+     "CK-202512-020"
+    ]
+   }
+  },
+  {
+   "product": "智能产线集成 HLine-3",
+   "date": "2025-12-30",
+   "customer": "广州粤海智能装备有限公司",
+   "qty": 2.0,
+   "unitPrice": 7000000.0,
+   "amount": 14000000.0,
+   "region": "内销",
+   "contractNo": "HT-202512-021",
+   "acceptStatus": "已验收",
+   "evidence": {
+    "contract": "HT-202512-021",
+    "acceptance": "YS-202512-021",
+    "stockOut": "CK-202512-021",
+    "deliverySign": null,
+    "docs": [
+     "HT-202512-021",
+     "YS-202512-021",
+     "CK-202512-021"
+    ]
+   }
+  },
+  {
+   "product": "精密功能部件 HK-220",
+   "date": "2025-12-31",
+   "customer": "北京中科精工科技有限公司",
+   "qty": 4.0,
+   "unitPrice": 900000.0,
+   "amount": 3600000.0,
+   "region": "内销",
+   "contractNo": "HT-202512-022",
+   "acceptStatus": "已验收",
+   "evidence": {
+    "contract": "HT-202512-022",
+    "acceptance": "YS-202512-022",
+    "stockOut": "CK-202512-022",
+    "deliverySign": null,
+    "docs": [
+     "HT-202512-022",
+     "YS-202512-022",
+     "CK-202512-022"
+    ]
+   }
+  },
+  {
+   "product": "智能产线集成 HLine-3",
+   "date": "2025-12-06",
+   "customer": "越南 HMC 制造有限公司",
+   "qty": 1.0,
+   "unitPrice": 6000000.0,
+   "amount": 6000000.0,
+   "region": "出口",
+   "contractNo": "HT-202512-023",
+   "acceptStatus": "已验收",
+   "evidence": {
+    "contract": "HT-202512-023",
+    "acceptance": "YS-202512-023",
+    "stockOut": "CK-202512-023",
+    "deliverySign": null,
+    "docs": [
+     "HT-202512-023",
+     "YS-202512-023",
+     "CK-202512-023"
+    ]
+   }
+  }
+ ],
+ "kpi": [
+  {
+   "no": 1,
+   "item": "样本合同金额",
+   "value": "3,051.00",
+   "unit": "万元",
+   "note": "样本合同金额 · 华衡智造 2025.12 案例口径"
+  },
+  {
+   "no": 2,
+   "item": "已验收台数",
+   "value": "6",
+   "unit": "台",
+   "note": "已验收台数 · 华衡智造 2025.12 案例口径"
+  },
+  {
+   "no": 3,
+   "item": "待开票事项",
+   "value": "2",
+   "unit": "项",
+   "note": "待开票事项 · 华衡智造 2025.12 案例口径"
+  },
+  {
+   "no": 4,
+   "item": "平均单价",
+   "value": "508.50",
+   "unit": "万元",
+   "note": "平均单价 · 华衡智造 2025.12 案例口径"
+  },
+  {
+   "no": 5,
+   "item": "出口销售额",
+   "value": "1,200.00",
+   "unit": "万元",
+   "note": "出口销售额 · 华衡智造 2025.12 案例口径"
+  }
+ ],
+ "cases": [
+  {
+   "no": "TC-001",
+   "step": "数控机床整机开票",
+   "scenario": "上海衡远机电设备 · 五轴数控机床 HMC-800 6 台",
+   "input": "2025-12-05 验收合格，控制权已转移；合同价税合计 3,051.00 万元，本次按合同全额开具增值税专用发票。",
+   "expected": "按作业台校验（开票任务）",
+   "criteria": "与作业台标准答案逐项比对",
+   "score": "1",
+   "taskType": "开票任务"
+  },
+  {
+   "no": "TC-002",
+   "step": "智能产线与机器人工作站开票",
+   "scenario": "广州粤海智能装备 · 智能产线集成 HLine-3 1 套",
+   "input": "2025-12-08 验收合格，控制权已转移；合同价税合计 791.00 万元，本次按合同全额开具增值税专用发票。",
+   "expected": "按作业台校验（开票任务）",
+   "criteria": "与作业台标准答案逐项比对",
+   "score": "1",
+   "taskType": "开票任务"
+  },
+  {
+   "no": "TC-003",
+   "step": "智能产线与机器人工作站开票",
+   "scenario": "北京中科精工科技 · 智能产线集成 HLine-3 1 套",
+   "input": "2025-12-09 验收合格，控制权已转移；合同价税合计 791.00 万元，本次按合同全额开具增值税专用发票。",
+   "expected": "按作业台校验（开票任务）",
+   "criteria": "与作业台标准答案逐项比对",
+   "score": "1",
+   "taskType": "开票任务"
+  },
+  {
+   "no": "TC-004",
+   "step": "精密部件与备件服务开票",
+   "scenario": "成都天府智造 · 精密功能部件 HK-220 3 批",
+   "input": "2025-12-10 验收合格，控制权已转移；合同价税合计 305.10 万元，本次按合同全额开具增值税专用发票。",
+   "expected": "按作业台校验（开票任务）",
+   "criteria": "与作业台标准答案逐项比对",
+   "score": "1",
+   "taskType": "开票任务"
+  },
+  {
+   "no": "TC-005",
+   "step": "智能产线与机器人工作站开票",
+   "scenario": "苏州工业园区精机 · 工业机器人工作站 HR-6 2 台",
+   "input": "2025-12-12 验收合格，控制权已转移；合同价税合计 271.20 万元，本次按合同全额开具增值税专用发票。",
+   "expected": "按作业台校验（开票任务）",
+   "criteria": "与作业台标准答案逐项比对",
+   "score": "1",
+   "taskType": "开票任务"
+  },
+  {
+   "no": "TC-006",
+   "step": "精密部件与备件服务开票",
+   "scenario": "武汉长江数控 · 精密功能部件 HK-220 2 批",
+   "input": "2025-12-15 验收合格，控制权已转移；合同价税合计 203.40 万元，本次按合同全额开具增值税专用发票。",
+   "expected": "按作业台校验（开票任务）",
+   "criteria": "与作业台标准答案逐项比对",
+   "score": "1",
+   "taskType": "开票任务"
+  },
+  {
+   "no": "TC-007",
+   "step": "智能产线与机器人工作站开票",
+   "scenario": "青岛海德装备 · 工业机器人工作站 HR-6 2 台",
+   "input": "2025-12-16 验收合格，控制权已转移；合同价税合计 271.20 万元，本次按合同全额开具增值税专用发票。",
+   "expected": "按作业台校验（开票任务）",
+   "criteria": "与作业台标准答案逐项比对",
+   "score": "1",
+   "taskType": "开票任务"
+  },
+  {
+   "no": "TC-008",
+   "step": "数控机床整机开票",
+   "scenario": "宁波甬江精密部件 · 五轴数控机床 HMC-800 1 台",
+   "input": "2025-12-18 验收合格，控制权已转移；合同价税合计 508.50 万元，本次按合同全额开具增值税专用发票。",
+   "expected": "按作业台校验（开票任务）",
+   "criteria": "与作业台标准答案逐项比对",
+   "score": "1",
+   "taskType": "开票任务"
+  },
+  {
+   "no": "TC-009",
+   "step": "精密部件与备件服务开票",
+   "scenario": "西安航天智造 · 备件与售后服务 4 单",
+   "input": "2025-12-20 验收合格，控制权已转移；合同价税合计 153.68 万元，本次按合同全额开具增值税专用发票。",
+   "expected": "按作业台校验（开票任务）",
+   "criteria": "与作业台标准答案逐项比对",
+   "score": "1",
+   "taskType": "开票任务"
+  },
+  {
+   "no": "TC-010",
+   "step": "数控机床整机开票",
+   "scenario": "广州粤海智能装备 · 五轴数控机床 HMC-800 2 台",
+   "input": "2025-12-22 验收合格，控制权已转移；合同价税合计 1,017.00 万元，本次按合同全额开具增值税专用发票。",
+   "expected": "按作业台校验（开票任务）",
+   "criteria": "与作业台标准答案逐项比对",
+   "score": "1",
+   "taskType": "开票任务"
+  },
+  {
+   "no": "TC-011",
+   "step": "精密部件与备件服务开票",
+   "scenario": "北京中科精工科技 · 备件与售后服务 3 单",
+   "input": "2025-12-23 验收合格，控制权已转移；合同价税合计 115.26 万元，本次按合同全额开具增值税专用发票。",
+   "expected": "按作业台校验（开票任务）",
+   "criteria": "与作业台标准答案逐项比对",
+   "score": "1",
+   "taskType": "开票任务"
+  },
+  {
+   "no": "TC-012",
+   "step": "智能产线与机器人工作站开票",
+   "scenario": "成都天府智造 · 智能产线集成 HLine-3 1 套",
+   "input": "2025-12-25 验收合格，控制权已转移；合同价税合计 791.00 万元，本次按合同全额开具增值税专用发票。",
+   "expected": "按作业台校验（开票任务）",
+   "criteria": "与作业台标准答案逐项比对",
+   "score": "1",
+   "taskType": "开票任务"
+  },
+  {
+   "no": "TC-013",
+   "step": "精密部件与备件服务开票",
+   "scenario": "苏州工业园区精机 · 精密功能部件 HK-220 2 批",
+   "input": "2025-12-26 验收合格，控制权已转移；合同价税合计 203.40 万元，本次按合同全额开具增值税专用发票。",
+   "expected": "按作业台校验（开票任务）",
+   "criteria": "与作业台标准答案逐项比对",
+   "score": "1",
+   "taskType": "开票任务"
+  },
+  {
+   "no": "TC-014",
+   "step": "精密部件与备件服务开票",
+   "scenario": "武汉长江数控 · 备件与售后服务 5 单",
+   "input": "2025-12-27 验收合格，控制权已转移；合同价税合计 192.10 万元，本次按合同全额开具增值税专用发票。",
+   "expected": "按作业台校验（开票任务）",
+   "criteria": "与作业台标准答案逐项比对",
+   "score": "1",
+   "taskType": "开票任务"
+  },
+  {
+   "no": "TC-015",
+   "step": "数控机床整机开票",
+   "scenario": "青岛海德装备 · 五轴数控机床 HMC-800 1 台",
+   "input": "2025-12-28 验收合格，控制权已转移；合同价税合计 508.50 万元，本次按合同全额开具增值税专用发票。",
+   "expected": "按作业台校验（开票任务）",
+   "criteria": "与作业台标准答案逐项比对",
+   "score": "1",
+   "taskType": "开票任务"
+  },
+  {
+   "no": "TC-016",
+   "step": "智能产线与机器人工作站开票",
+   "scenario": "宁波甬江精密部件 · 工业机器人工作站 HR-6 1 台",
+   "input": "2025-12-29 验收合格，控制权已转移；合同价税合计 135.60 万元，本次按合同全额开具增值税专用发票。",
+   "expected": "按作业台校验（开票任务）",
+   "criteria": "与作业台标准答案逐项比对",
+   "score": "1",
+   "taskType": "开票任务"
+  },
+  {
+   "no": "TC-017",
+   "step": "精密部件与备件服务开票",
+   "scenario": "西安航天智造 · 精密功能部件 HK-220 1 批",
+   "input": "2025-12-30 验收合格，控制权已转移；合同价税合计 101.70 万元，本次按合同全额开具增值税专用发票。",
+   "expected": "按作业台校验（开票任务）",
+   "criteria": "与作业台标准答案逐项比对",
+   "score": "1",
+   "taskType": "开票任务"
+  },
+  {
+   "no": "TC-018",
+   "step": "数控机床整机开票",
+   "scenario": "西安航天智造 · 五轴数控机床 HMC-800 3 台",
+   "input": "2025-12-30 验收合格，控制权已转移；合同价税合计 1,525.50 万元，本次按合同全额开具增值税专用发票。",
+   "expected": "按作业台校验（开票任务）",
+   "criteria": "与作业台标准答案逐项比对",
+   "score": "1",
+   "taskType": "开票任务"
+  },
+  {
+   "no": "TC-019",
+   "step": "智能产线与机器人工作站开票",
+   "scenario": "广州粤海智能装备 · 智能产线集成 HLine-3 2 套",
+   "input": "2025-12-30 验收合格，控制权已转移；合同价税合计 1,582.00 万元，本次按合同全额开具增值税专用发票。",
+   "expected": "按作业台校验（开票任务）",
+   "criteria": "与作业台标准答案逐项比对",
+   "score": "1",
+   "taskType": "开票任务"
+  },
+  {
+   "no": "TC-020",
+   "step": "精密部件与备件服务开票",
+   "scenario": "北京中科精工科技 · 精密功能部件 HK-220 4 批",
+   "input": "2025-12-31 验收合格，控制权已转移；合同价税合计 406.80 万元，本次按合同全额开具增值税专用发票。",
+   "expected": "按作业台校验（开票任务）",
+   "criteria": "与作业台标准答案逐项比对",
+   "score": "1",
+   "taskType": "开票任务"
+  },
+  {
+   "no": "TC-021",
+   "step": "出口发票与未验收暂缓",
+   "scenario": "越南 HMC · 出口设备 2 台 + 产线 1 套",
+   "input": "2025-12-06 报关出口离境；FOB 价合计 1,200.00 万元（HT-003 600.00 万元 + HT-023 600.00 万元），开具出口发票，适用 0% 税率。",
+   "expected": "按作业台校验（开票任务）",
+   "criteria": "与作业台标准答案逐项比对",
+   "score": "1",
+   "taskType": "开票任务"
+  },
+  {
+   "no": "TC-022",
+   "step": "出口发票与未验收暂缓",
+   "scenario": "上海衡远机电设备 · 未验收 2 台（暂不开票）",
+   "input": "2025-12-05 已发货并由客户签收，但未安装验收；控制权未转移，本次暂不开票，登记为待开票。合同价税合计 1,017.00 万元。",
+   "expected": "按作业台校验（开票任务）",
+   "criteria": "与作业台标准答案逐项比对",
+   "score": "1",
+   "taskType": "开票任务"
+  }
+ ]
+}

@@ -1,0 +1,353 @@
+{
+ "taxRates": [
+  {
+   "rate": "13%",
+   "code": 0.13,
+   "scope": "销售或进口货物、加工修理修配劳务、有形动产租赁服务",
+   "source": "tax_rates"
+  },
+  {
+   "rate": "9%",
+   "code": 0.09,
+   "scope": "交通运输、邮政、基础电信、建筑、不动产租赁与销售、农产品等",
+   "source": "tax_rates"
+  },
+  {
+   "rate": "6%",
+   "code": 0.06,
+   "scope": "现代服务、金融服务、生活服务、无形资产销售（除土地使用权）",
+   "source": "tax_rates"
+  },
+  {
+   "rate": "0%",
+   "code": 0.0,
+   "scope": "出口货物、境内单位跨境应税行为（适用零税率）",
+   "source": "tax_rates"
+  },
+  {
+   "rate": "5%",
+   "code": 0.05,
+   "scope": "简易计税征收率（不动产经营租赁、劳务派遣差额等）",
+   "source": "tax_rates"
+  }
+ ],
+ "customers": [
+  {
+   "name": "苏州华辰精密机械有限公司",
+   "taxNo": "91320507MA1WQ8N65T",
+   "creditLevel": null,
+   "invoiceCount": 17,
+   "source": "document"
+  },
+  {
+   "name": "深圳汇川伺服技术有限公司",
+   "taxNo": "91440300MA5F8N2K7Q",
+   "creditLevel": null,
+   "invoiceCount": 13,
+   "source": "document"
+  },
+  {
+   "name": "宝钢特钢有限公司",
+   "taxNo": "91310113MA1G5K8X2P",
+   "creditLevel": null,
+   "invoiceCount": 8,
+   "source": "document"
+  },
+  {
+   "name": "广州粤海智能装备有限公司",
+   "taxNo": "91440101MA5CQ3T78P",
+   "creditLevel": null,
+   "invoiceCount": 3,
+   "source": "document"
+  },
+  {
+   "name": "北京中科精工科技有限公司",
+   "taxNo": "91110108MA01B6Y44L",
+   "creditLevel": null,
+   "invoiceCount": 3,
+   "source": "document"
+  },
+  {
+   "name": "西安航天智造有限公司",
+   "taxNo": "91610113MA6U2K9X7D",
+   "creditLevel": null,
+   "invoiceCount": 3,
+   "source": "document"
+  },
+  {
+   "name": "宁波甬江精密部件有限公司",
+   "taxNo": "91330206MA2AF7R38H",
+   "creditLevel": null,
+   "invoiceCount": 2,
+   "source": "document"
+  },
+  {
+   "name": "青岛海德装备有限公司",
+   "taxNo": "91370214MA3M8L6V2C",
+   "creditLevel": null,
+   "invoiceCount": 2,
+   "source": "document"
+  },
+  {
+   "name": "广州数控设备有限公司",
+   "taxNo": "91440101MA5C9T3L8R",
+   "creditLevel": null,
+   "invoiceCount": 2,
+   "source": "document"
+  },
+  {
+   "name": "成都天府智造有限公司",
+   "taxNo": "91510100MA6C9K3D2R",
+   "creditLevel": null,
+   "invoiceCount": 2,
+   "source": "document"
+  },
+  {
+   "name": "苏州工业园区精机有限公司",
+   "taxNo": "91320594MA1WQ8N65T",
+   "creditLevel": null,
+   "invoiceCount": 2,
+   "source": "document"
+  },
+  {
+   "name": "武汉长江数控有限公司",
+   "taxNo": "91420100MA4KX2P39F",
+   "creditLevel": null,
+   "invoiceCount": 2,
+   "source": "document"
+  },
+  {
+   "name": "上海衡远机电设备有限公司",
+   "taxNo": "91310112MA1GC8X21K",
+   "creditLevel": null,
+   "invoiceCount": 1,
+   "source": "document"
+  },
+  {
+   "name": "深圳中天会计师事务所",
+   "taxNo": "91440300MA5D8H6V2C",
+   "creditLevel": null,
+   "invoiceCount": 1,
+   "source": "document"
+  }
+ ],
+ "scope": [
+  {
+   "product": "五轴数控机床 HMC-800",
+   "category": "应税货物-机械设备",
+   "defaultRate": "13%",
+   "taxClass": "应税货物",
+   "regions": [
+    "内销",
+    "出口"
+   ]
+  },
+  {
+   "product": "备件与售后服务",
+   "category": "应税服务-售后服务",
+   "defaultRate": "13%",
+   "taxClass": "应税服务",
+   "regions": [
+    "内销"
+   ]
+  },
+  {
+   "product": "工业机器人工作站 HR-6",
+   "category": "应税货物-机械设备",
+   "defaultRate": "13%",
+   "taxClass": "应税货物",
+   "regions": [
+    "内销"
+   ]
+  },
+  {
+   "product": "智能产线集成 HLine-3",
+   "category": "应税货物-机械设备",
+   "defaultRate": "13%",
+   "taxClass": "应税货物",
+   "regions": [
+    "内销",
+    "出口"
+   ]
+  },
+  {
+   "product": "精密功能部件 HK-220",
+   "category": "应税货物-零部件",
+   "defaultRate": "13%",
+   "taxClass": "应税货物",
+   "regions": [
+    "内销"
+   ]
+  }
+ ],
+ "fieldDefs": [
+  {
+   "key": "party",
+   "label": "购买方名称",
+   "required": true,
+   "check": "check_title",
+   "kinds": [
+    "增值税专用发票",
+    "出口发票",
+    "销售合同",
+    "验收单",
+    "出库单"
+   ]
+  },
+  {
+   "key": "partyTaxNo",
+   "label": "纳税人识别号",
+   "required": true,
+   "check": "check_title",
+   "kinds": [
+    "增值税专用发票",
+    "出口发票"
+   ]
+  },
+  {
+   "key": "amountTotal",
+   "label": "价税合计",
+   "required": true,
+   "check": "check_amount",
+   "kinds": [
+    "增值税专用发票",
+    "出口发票",
+    "销售合同",
+    "验收单"
+   ]
+  },
+  {
+   "key": "amountExTax",
+   "label": "不含税金额",
+   "required": true,
+   "check": "check_amount",
+   "kinds": [
+    "增值税专用发票",
+    "出口发票",
+    "销售合同"
+   ]
+  },
+  {
+   "key": "taxRate",
+   "label": "税率",
+   "required": true,
+   "check": "check_tax_rate",
+   "kinds": [
+    "增值税专用发票",
+    "出口发票",
+    "销售合同"
+   ]
+  },
+  {
+   "key": "docDate",
+   "label": "单据日期",
+   "required": true,
+   "check": "check_date",
+   "kinds": [
+    "增值税专用发票",
+    "销售合同",
+    "验收单",
+    "出库单"
+   ]
+  },
+  {
+   "key": "contractNo",
+   "label": "合同编号",
+   "required": false,
+   "check": "check_scope",
+   "kinds": [
+    "销售合同"
+   ]
+  },
+  {
+   "key": "items",
+   "label": "货物/服务明细",
+   "required": true,
+   "check": "check_scope",
+   "kinds": [
+    "增值税专用发票",
+    "出口发票",
+    "销售合同"
+   ]
+  }
+ ],
+ "docTypes": [
+  {
+   "name": "增值税专用发票",
+   "role": "销项",
+   "auditRequired": true,
+   "evidence": [
+    "销售合同",
+    "验收单",
+    "出库单"
+   ],
+   "count": 60
+  },
+  {
+   "name": "增值税普通发票",
+   "role": "费用/进项",
+   "auditRequired": false,
+   "evidence": [],
+   "count": 42
+  },
+  {
+   "name": "出口发票",
+   "role": "销项-出口",
+   "auditRequired": true,
+   "evidence": [
+    "销售合同",
+    "验收单",
+    "出库单"
+   ],
+   "count": 2
+  },
+  {
+   "name": "销售合同",
+   "role": "收入依据",
+   "auditRequired": true,
+   "evidence": [],
+   "count": 23
+  },
+  {
+   "name": "采购合同",
+   "role": "成本依据",
+   "auditRequired": false,
+   "evidence": [],
+   "count": 1
+  },
+  {
+   "name": "验收单",
+   "role": "控制权转移证据",
+   "auditRequired": true,
+   "evidence": [
+    "销售合同"
+   ],
+   "count": 22
+  },
+  {
+   "name": "到货签收单",
+   "role": "交付证据",
+   "auditRequired": true,
+   "evidence": [
+    "销售合同"
+   ],
+   "count": 1
+  },
+  {
+   "name": "出库单",
+   "role": "出库证据",
+   "auditRequired": true,
+   "evidence": [
+    "销售合同"
+   ],
+   "count": 23
+  },
+  {
+   "name": "海关进口增值税专用缴款书",
+   "role": "进项-进口",
+   "auditRequired": false,
+   "evidence": [],
+   "count": 1
+  }
+ ]
+}
