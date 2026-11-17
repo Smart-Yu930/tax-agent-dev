@@ -77,6 +77,57 @@
   var practiceRoot = null;
   var current = { area: 'practice', view: 'workbench' };
   var ISSUED_KEY = 'dsh_issued_v1';
+  var SESSION_KEY = 'dsh_session_v1';
+  var suppressSave = false;          // 自检期间不落库
+  var saveTimer = null;
+
+  function dataSig() {
+    var m = DATA.meta || {};
+    return String(m.docCount || 0) + '|' + String(m.generatedAt || '');
+  }
+
+  /** 读取上次会话（数据指纹不一致说明数据已重建，旧状态作废） */
+  function loadSession() {
+    try {
+      var raw = localStorage.getItem(SESSION_KEY);
+      if (!raw) return null;
+      var objS = JSON.parse(raw);
+      if (!objS || objS.sig !== dataSig()) return null;
+      return objS;
+    } catch (e) { return null; }
+  }
+
+  function clearSession() {
+    try { localStorage.removeItem(SESSION_KEY); } catch (e) { /* 忽略 */ }
+  }
+
+  function saveSession() {
+    if (suppressSave) return;
+    try {
+      var st = null;
+      if (practiceApi && practiceApi.getState) {
+        try { st = practiceApi.getState(); } catch (e2) { st = null; }
+      }
+      var rej = [];
+      if (root.Agent && root.Agent.getRejected) {
+        try { rej = root.Agent.getRejected() || []; } catch (e3) { rej = []; }
+      }
+      localStorage.setItem(SESSION_KEY, JSON.stringify({
+        sig: dataSig(),
+        savedAt: new Date().toISOString(),
+        area: current.area,
+        view: current.view,
+        practice: st,
+        rejected: rej
+      }));
+    } catch (e) { /* file:// 或隐私模式下忽略 */ }
+  }
+
+  function saveSessionSoon() {
+    if (suppressSave) return;
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveSession, 350);
+  }
 
   /** 视图别名：兼容分享链接与旧参数写法（invoiceLedger / desk / new / testExample …） */
   var PRACTICE_ALIAS = {
@@ -152,7 +203,7 @@
         '<div class="top-right">' +
           '<div class="top-user"><span>开票岗</span>李娜</div>' +
           '<button class="ag-btn ghost" id="topSync" title="用数据集内的发票原件反推本月已开具事项">同步已开票</button>' +
-          '<button class="ag-btn ghost" id="topReset" style="display:none" title="清除本机保存的已开具状态，恢复初始待开票清单">重置开票状态</button>' +
+          '<button class="ag-btn ghost" id="topReset" style="display:none" title="清除本机保存的会话与已开具状态，恢复到初始数据">重置本机数据</button>' +
           '<button class="ag-btn ghost" id="topLlm">大模型API设置</button>' +
           '<button class="ag-btn gold" id="topTest">测试示例</button>' +
         '</div>' +
@@ -239,6 +290,7 @@
     if (prevArea !== current.area || !prevGroup || !nextGroup || prevGroup.key !== nextGroup.key) renderSide();
     markNav();
     renderCurrent();
+    saveSessionSoon();
     return current;
   }
 
@@ -414,10 +466,12 @@
           }
         }, 80);
       },
+      // 实务系统内任何筛选/页签/表单变更 → 防抖落库
+      onStateChange: function () { saveSessionSoon(); },
       // 实务系统内部切视图（看板任务卡 / 开具台跳转）→ 同步左侧导航高亮，不重挂内容
       onShow: function (view) {
         var v = normalizeView('practice', view);
-        if (v) { current.area = 'practice'; current.view = v; markNav(); }
+        if (v) { current.area = 'practice'; current.view = v; markNav(); saveSessionSoon(); }
       },
       // 智能体「确认开具」→ 回写实务系统状态（待开票清单移除 + 开票台账新增）
       onIssued: function (issued) {
@@ -482,6 +536,15 @@
       return;
     }
     if (!appCtx) appCtx = buildAppCtx();
+    // 重挂前把当前筛选/页码带过去（草稿与手选项不带，避免过期数据回流）
+    if (practiceApi && practiceApi.getState) {
+      try {
+        var carry = practiceApi.getState();
+        carry.draft = null;
+        carry.pickedRow = null;
+        DATA.__session = carry;
+      } catch (e3) { /* 忽略 */ }
+    }
     practiceRoot = document.createElement('div');
     practiceApi = root.Practice.mount(practiceRoot, DATA, appCtx);
     // 智能体与实务系统共用上下文，确保「确认开具」能回写到待开票清单
@@ -688,6 +751,7 @@
       initPractice();
       go('practice', 'pending');
     }
+    saveSessionSoon();
     if (row) {
       return '开具完成：' + row.product + ' · ' + row.customer + ' · 发票 ' + issued.id + ' 已登记；待开票列表已更新。';
     }
@@ -785,6 +849,7 @@
       refreshTopReset();
       topReset.onclick = function () {
         clearIssuedState();
+        clearSession();
         toast('已清除已开具状态，正在恢复初始待开票清单…');
         setTimeout(function () { location.reload(); }, 400);
       };
@@ -861,7 +926,9 @@
       if (!ok) res.failed++;
     }
 
-    // 0. 干净起点：清空已开具的持久化与内存状态，保证断言可重复
+    // 0. 干净起点：清空会话与已开具的持久化，并暂停落库，保证断言可重复
+    suppressSave = true;
+    clearSession();
     clearIssuedState();
     (DATA.tables && DATA.tables.sales ? DATA.tables.sales : []).forEach(function (r) {
       delete r.issueStatus; delete r.invoiceNo; delete r.issuedAt; delete r.draftNo;
@@ -1557,15 +1624,53 @@
     }
     if (root.Agent.clearRejected) root.Agent.clearRejected();
 
+    // 12f. 会话持久化：视图 / 筛选 / 看板页签写入 localStorage，并可被重新读出
+    go('practice', 'pending');
+    await sleep(90);
+    var regionChip = Array.prototype.slice.call(document.querySelectorAll('#content .pra-view.on .pra-chip')).filter(function (b) {
+      return b.textContent.trim() === '出口';
+    })[0];
+    if (regionChip) { regionChip.click(); await sleep(70); }
+    go('practice', 'workbench');
+    await sleep(90);
+    var wbTab2 = Array.prototype.slice.call(document.querySelectorAll('.pra-board-tab')).filter(function (b) {
+      return (b.textContent || '').indexOf('已开具') >= 0;
+    })[0];
+    if (wbTab2) { wbTab2.click(); await sleep(60); }
+    suppressSave = false;
+    saveSession();
+    var savedSess = loadSession();
+    step('界面状态可写入本机会话缓存（视图 / 筛选 / 看板页签）',
+      !!savedSess && savedSess.area === 'practice' && savedSess.view === 'workbench' &&
+      !!savedSess.practice && savedSess.practice.pending.region === '出口' &&
+      savedSess.practice.workbenchTab === 'issued',
+      savedSess ? ('视图 ' + savedSess.area + '/' + savedSess.view + '，区域筛选 ' +
+        savedSess.practice.pending.region + '，看板页签 ' + savedSess.practice.workbenchTab) : '未写入');
+    // 模拟「关掉再打开」：用缓存重新挂载并通过 api.getState 读回
+    if (savedSess && savedSess.practice) {
+      DATA.__session = savedSess.practice;
+      initPractice();
+      var backState = practiceApi && practiceApi.getState ? practiceApi.getState() : null;
+      step('重新打开后筛选与看板页签被恢复',
+        !!backState && backState.pending.region === '出口' && backState.workbenchTab === 'issued',
+        backState ? ('区域 ' + backState.pending.region + ' / 页签 ' + backState.workbenchTab) : '无状态');
+    }
+    suppressSave = true;
+    clearSession();
+
     // 12c. 收尾：清掉本次自检写入的开票状态，回到初始工作台（自检可重复执行）
     clearIssuedState();
     if (root.Agent && root.Agent.resetPool) root.Agent.resetPool();
     initPractice();
     go('practice', 'workbench');
     await sleep(60);
-    step('自检收尾：开票状态已复位并回到工作台',
-      (DATA.sessionInvoices || []).length === 0 && loadIssued().length === 0 && current.area === 'practice' && current.view === 'workbench',
-      'sessionInvoices ' + (DATA.sessionInvoices || []).length + ' 条 / localStorage ' + loadIssued().length + ' 条 / ' + current.area + '/' + current.view);
+    step('自检收尾：开票状态与会话已复位并回到工作台',
+      (DATA.sessionInvoices || []).length === 0 && loadIssued().length === 0 &&
+      !loadSession() && current.area === 'practice' && current.view === 'workbench',
+      'sessionInvoices ' + (DATA.sessionInvoices || []).length + ' 条 / 已开具缓存 ' + loadIssued().length +
+        ' 条 / 会话缓存 ' + (loadSession() ? '有' : '无') + ' / ' + current.area + '/' + current.view);
+    suppressSave = false;
+    clearSession();
 
     res.ok = res.failed === 0;
     res.finishedAt = new Date().toISOString();
@@ -1586,10 +1691,24 @@
     document.body.appendChild(buildShell());
     bindTop();
     var restored = restoreIssued();
+    var h = parseHash();
+    var sess = loadSession();
+    var useSession = !!sess && !(h && (h.selftest || h.demo));
+    if (useSession && sess.practice) DATA.__session = sess.practice;
+    if (useSession && sess.rejected && root.Agent && root.Agent.setRejected) {
+      root.Agent.setRejected(sess.rejected);
+    }
     initPractice();
     renderSide();
-    var h = parseHash();
-    go(h ? h.area : 'practice', h ? h.view : 'workbench');
+    go(h ? h.area : (useSession ? sess.area : 'practice'),
+      h ? h.view : (useSession ? sess.view : 'workbench'));
+    if (useSession) {
+      setTimeout(function () {
+        toast('已恢复上次会话：' + (PRACTICE_VIEWS.concat(AGENT_VIEWS).filter(function (v) {
+          return v.key === current.view;
+        })[0] || { name: current.view }).name + '（可在顶部「重置本机数据」清除）', '', 5200);
+      }, 1200);
+    }
     if (h && h.demo) setTimeout(function () { runDemo(h.demo); }, 200);
     if (restored) {
       setTimeout(function () {

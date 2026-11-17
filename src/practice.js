@@ -444,15 +444,21 @@
     var doc = container.ownerDocument || (typeof document !== 'undefined' ? document : null);
     var C = obj(ctx);
     var model = buildModel(data);
+    /* 宿主可通过 data.__session 注入上次会话的界面状态（筛选 / 页码 / 看板页签 / 草稿） */
+    var initS = obj(obj(data).__session);
+    var sLedger = obj(initS.ledger);
+    var sPending = obj(initS.pending);
+    var sInv = obj(initS.invoices);
+    var sIss = obj(initS.issued);
     var st = {
       view: VIEWS[0].key,
-      ledger: { cat: '全部', kw: '', page: 1 },
-      pending: { region: '全部', status: '全部' },
-      invoices: { type: '全部', sort: 'none', page: 1 },
-      issued: { page: 1 },
-      workbenchTab: 'pending',
-      draft: null,
-      pickedRow: null
+      ledger: { cat: str(sLedger.cat) || '全部', kw: str(sLedger.kw), page: num(sLedger.page) || 1 },
+      pending: { region: str(sPending.region) || '全部', status: str(sPending.status) || '全部' },
+      invoices: { type: str(sInv.type) || '全部', sort: str(sInv.sort) || 'none', page: num(sInv.page) || 1 },
+      issued: { page: num(sIss.page) || 1 },
+      workbenchTab: str(initS.workbenchTab) || 'pending',
+      draft: initS.draft ? obj(initS.draft) : null,
+      pickedRow: initS.pickedRow ? obj(initS.pickedRow) : null
     };
     /** 「被驳回申请」列表的刷新器（切回该视图 / 修改信息后重绘） */
     var rejectedRefresher = null;
@@ -646,6 +652,16 @@
 
     var toastEl = h('div', 'pra-toast');
     root.appendChild(toastEl);
+
+    /* 任何筛选 / 分页 / 页签 / 表单变更后通知宿主落库（宿主做防抖保存） */
+    function notifyChange() {
+      if (typeof C.onStateChange === 'function') {
+        try { C.onStateChange(); } catch (e) { /* 忽略 */ }
+      }
+    }
+    root.addEventListener('click', function () { setTimeout(notifyChange, 30); });
+    root.addEventListener('input', function () { setTimeout(notifyChange, 120); });
+    root.addEventListener('change', function () { setTimeout(notifyChange, 30); });
 
     function openModal(title) {
       modalTitle.textContent = str(title || '原件摘要');
@@ -2244,6 +2260,7 @@
       st.draft = null;
       recalc('init');
       renderDraft();
+      notifyChange();
       toast('已带入待开票事项：' + str(r.product) + ' · ' + str(r.customer) + '，核对票面后可直接「提交开票」');
     }
 
@@ -2896,6 +2913,7 @@
         st.draft = obj(draft);
         show('issue');
         fillForm(st.draft);
+        notifyChange();
         toast('已由智能体草稿回填票面信息：' + text(st.draft.draftNo, '未编号') + '（请人工核对）');
         return api;
       },
@@ -2906,7 +2924,10 @@
           ledger: { cat: st.ledger.cat, kw: st.ledger.kw, page: st.ledger.page },
           pending: { region: st.pending.region, status: st.pending.status },
           invoices: { type: st.invoices.type, sort: st.invoices.sort, page: st.invoices.page },
-          draft: st.draft
+          issued: { page: st.issued.page },
+          workbenchTab: st.workbenchTab,
+          draft: st.draft,
+          pickedRow: st.pickedRow
         };
       },
       model: model

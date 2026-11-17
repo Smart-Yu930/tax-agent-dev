@@ -1418,6 +1418,7 @@
     getPool: function () { return state.pool; },
     /* ---------- 被驳回申请：查看 / 补单据 / 改信息 / 重审 ---------- */
     getRejected: function () { return state.rejected; },
+    setRejected: function (list) { state.rejected = Array.isArray(list) ? list : []; },
     getRejectedOne: function (no) {
       return state.rejected.filter(function (x) { return x.applicationNo === no; })[0] || null;
     },
