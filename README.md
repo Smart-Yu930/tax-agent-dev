@@ -2,7 +2,48 @@
 
 税务领域智能体（Tax Agent）开发项目。
 
-当前交付：**智能发票审核与开发助手**（P1-01 发票开具 · 工作事项智能体）
+当前交付：
+
+- **桌面版（主）**：`desktop/`，Rust + Tauri 2 + React 19，业务内核与界面分离。
+- **单文件旧版（保留参考）**：`index.html`，零依赖直接打开，用于对照旧交互与验收结果。
+
+## 桌面版（Rust + Tauri 2 + React 19）
+
+`desktop/` 用 Rust 重写业务内核、React 重做界面：单据分类、字段提取、六项校验、结论分级、草稿生成、编号与台账全部在 `crates/tax-core` 纯库中，Tauri 只负责命令桥和本机会话文件。175 份单据与 5 项制度通过 `include_str!` 嵌入二进制，运行时不联网、不读外部数据目录。
+
+### 快速开始
+
+```bash
+cd desktop
+npm install
+npm run tauri dev
+```
+
+需要 Node.js 20+、Rust stable 与 Tauri 2 对应平台依赖（macOS 装 Xcode Command Line Tools）。只跑前端可 `npm run dev`，但页面会提示需要在 Tauri 窗口内运行。
+
+### 校验
+
+```bash
+cd desktop
+cargo fmt --all -- --check
+cargo test --workspace
+npm run build
+```
+
+`crates/tax-core/tests/parity.rs` 把 TC-001 / TC-002 / TC-022 与 22 条销售审核结果逐条对齐原验收报告；CI 在每次 push / PR 检查 Rust 格式、跑 tax-core 测试并构建前端。
+
+### 目录
+
+```
+desktop/src-tauri                  Tauri 命令桥、窗口配置、会话持久化
+desktop/crates/tax-core/           纯 Rust 业务内核（分类 / 提取 / 校验 / 草稿 / 台账）
+desktop/crates/tax-core/tests/     parity 验收测试
+desktop/src/                       React 视图与样式
+```
+
+## 旧版单文件（保留参考）
+
+以下为旧版说明，保留用于对照原始交互与验收结果；桌面版以 `desktop/` 为准。
 
 ## 这是什么
 

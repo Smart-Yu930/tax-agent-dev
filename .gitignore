@@ -24,3 +24,8 @@ __pycache__/
 # 说明：data/*.json 与 index.html 是构建产物，但为保证克隆后可直接运行与复现，
 # 仍然入库；由 tools/build_data.py 与 tools/build.py 生成。
 !useractivity.log
+# 桌面版（Rust + Tauri + React）
+desktop/node_modules/
+desktop/target/
+desktop/dist/
+desktop/.playwright-cli/
